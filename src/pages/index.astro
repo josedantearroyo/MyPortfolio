@@ -1,29 +1,33 @@
 ---
 import Layout from "../layouts/Layout.astro"
+import Hero from "../components/Hero.astro"
+import SectionContainer from "../components/SectionContainer.astro"
 // importacion de iconos con astro-icon
 import { Icon } from 'astro-icon/components'
-import SectionContainer from "../components/SectionContainer.astro"
 ---
 
 <Layout
   title="Portafolio - Desarrollo de aplicaciones web con enfoque Full Stack"
   description="Contacta para crear tu aplicacion web"
 >
-  <main class="px-4">
-    <SectionContainer class="py-16 md:py-36">
-      <h1>DESARROLLADOR <strong>WEB</strong></h1>
+  <main>
+    <Hero />
+    
+    <!-- Sección adicional de contenido -->
+    <SectionContainer class="py-16 md:py-24">
+      <h2 class="text-3xl font-bold text-white mb-8">Tecnologías</h2>
       
       <!-- Ejemplos de iconos de Tabler usando astro-icon -->
       <div class="flex gap-4 mt-8">
-        <a href="https://github.com" class="flex items-center gap-2 text-blue-600 hover:text-blue-800">
+        <a href="https://github.com" class="flex items-center gap-2 text-blue-300 hover:text-blue-100 transition-colors">
           <Icon name="tabler:brand-github" class="w-6 h-6" />
           GitHub
         </a>
-        <a href="https://linkedin.com" class="flex items-center gap-2 text-blue-600 hover:text-blue-800">
+        <a href="https://linkedin.com" class="flex items-center gap-2 text-blue-300 hover:text-blue-100 transition-colors">
           <Icon name="tabler:brand-linkedin" class="w-6 h-6" />
           LinkedIn
         </a>
-        <div class="flex items-center gap-2 text-green-600">
+        <div class="flex items-center gap-2 text-green-300">
           <Icon name="tabler:mail" class="w-6 h-6" />
           Contacto
         </div>

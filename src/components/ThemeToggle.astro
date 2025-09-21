@@ -1,19 +1,205 @@
 ---
-const  THEMES = ["light", "dark", "System"]
-// importar los iconos de sol, luna y sistema de astro icons
-import { Icon } from 'astro-icon/components'
+const THEMES = ["light", "dark", "System"];
+import { Icon } from "astro-icon/components";
 ---
+
 <div class="relative ml-1 mr-1">
-    <button
-        transition:persist
-        id= "theme-toggle-btn"
-        class="appearance-none border-none flex hover:scale-125 transition"
-    >
-        <span class="sr-only">Elige el tema</span>
-        <Icon name="tabler:sun" class="w-6 h-6" />
-        <Icon name="tabler:moon" class="w-6 h-6" />
-        <Icon name="tabler:device-desktop" class="w-6 h-6" />
-
-    </button>
-
+  <button
+    transition:persist
+    id="theme-toggle-btn"
+    class="appearance-none border-none flex items-center justify-center w-8 h-8 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 hover:scale-110"
+  >
+    <span class="sr-only">Elige el tema</span>
+    <Icon
+      name="tabler:sun"
+      class="theme-toggle-icon size-5 transition-all duration-300"
+      id="light"
+      style="scale: 0; opacity: 0;"
+    />
+    <Icon 
+      name="tabler:moon" 
+      class="theme-toggle-icon size-5 transition-all duration-300 absolute" 
+      id="dark" 
+      style="scale: 0; opacity: 0;"
+    />
+    <Icon 
+      name="tabler:device-desktop" 
+      class="theme-toggle-icon size-5 transition-all duration-300 absolute" 
+      id="system" 
+      style="scale: 1; opacity: 1;"
+    />
+  </button>
+  <div
+    class="absolute hidden scale-80 top-10 right-0 text-sm p-2 min-w-[8rem] rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg backdrop-blur-md z-50"
+    id="themes-menu"
+    transition:persist
+  >
+    <ul class="space-y-1">
+      {
+        THEMES.map((theme) => (
+          <li class="themes-menu-option px-3 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors duration-200 flex items-center gap-2 text-gray-700 dark:text-gray-300">
+            <Icon 
+              name={theme === 'light' ? 'tabler:sun' : theme === 'dark' ? 'tabler:moon' : 'tabler:device-desktop'} 
+              class="size-4" 
+            />
+            {theme}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </div>
+<style>
+  #themes-menu.open {
+    display: block;
+    animation: scale-up-center 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @keyframes scale-up-center {
+    from {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .theme-toggle-icon {
+    transform-origin: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Asegurar que solo un icono esté visible */
+  .theme-toggle-icon:not([style*="scale: 1"]) {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+
+  .theme-toggle-icon[style*="scale: 1"] {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  /* Efecto hover en las opciones del menú */
+  .themes-menu-option:hover {
+    transform: translateX(2px);
+  }
+
+  /* Indicador del tema activo */
+  .themes-menu-option.active {
+    background-color: rgb(59 130 246 / 0.1);
+    color: rgb(59 130 246);
+  }
+
+  .dark .themes-menu-option.active {
+    background-color: rgb(59 130 246 / 0.2);
+    color: rgb(147 197 253);
+  }
+</style>
+<script is:inline>
+  function initTheme() {
+    const getStoredTheme = () => localStorage.getItem('theme');
+    const getSystemTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    
+    const getThemeToApply = () => {
+      const stored = getStoredTheme();
+      if (stored === 'light') return 'light';
+      if (stored === 'dark') return 'dark';
+      if (stored === 'system' || !stored) return getSystemTheme();
+      return getSystemTheme(); // fallback
+    };
+
+    const applyTheme = () => {
+      const currentStoredTheme = getStoredTheme() || 'system';
+      const themeToApply = getThemeToApply();
+      
+      console.log('Tema almacenado:', currentStoredTheme, '- Tema a aplicar:', themeToApply);
+      
+      // Aplicar el tema al documento
+      if (themeToApply === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      
+      // Actualizar iconos
+      document.querySelectorAll('.theme-toggle-icon').forEach(icon => {
+        if (icon.id === currentStoredTheme) {
+          icon.style.scale = '1';
+          icon.style.opacity = '1';
+        } else {
+          icon.style.scale = '0';
+          icon.style.opacity = '0';
+        }
+      });
+      
+      // Marcar opción activa en el menú
+      document.querySelectorAll('.themes-menu-option').forEach(option => {
+        const optionTheme = option.textContent.toLowerCase().trim();
+        if (optionTheme === currentStoredTheme) {
+          option.classList.add('active');
+        } else {
+          option.classList.remove('active');
+        }
+      });
+    };
+
+    const setTheme = (theme) => {
+      localStorage.setItem('theme', theme);
+      applyTheme();
+    };
+
+    // Aplicar tema inicial
+    applyTheme();
+
+    // Configurar eventos
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    const themesMenu = document.getElementById('themes-menu');
+
+    if (themeToggleBtn && themesMenu) {
+      // Toggle del menú
+      themeToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        themesMenu.classList.toggle('open');
+      });
+
+      // Cerrar menú al hacer click fuera
+      document.addEventListener('click', () => {
+        themesMenu.classList.remove('open');
+      });
+
+      // Seleccionar tema
+      document.querySelectorAll('.themes-menu-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const selectedTheme = e.currentTarget.textContent.toLowerCase().trim();
+          console.log('Tema seleccionado:', selectedTheme);
+          setTheme(selectedTheme);
+          themesMenu.classList.remove('open');
+        });
+      });
+    }
+
+    // Escuchar cambios en las preferencias del sistema (solo si el tema es 'system')
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (getStoredTheme() === 'system' || !getStoredTheme()) {
+        applyTheme();
+      }
+    });
+
+    // Para navegación SPA de Astro
+    document.addEventListener('astro:after-swap', applyTheme);
+  }
+
+  // Inicializar cuando el DOM esté listo
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTheme);
+  } else {
+    initTheme();
+  }
+</script>

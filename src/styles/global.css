@@ -1,4 +1,45 @@
 @import "tailwindcss";
-body{
+
+/* Configuración de fuentes */
+body {
     font-family: 'Inter', sans-serif;
+}
+
+/* Transiciones suaves para el modo oscuro */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+    min-height: 100vh;
+}
+
+/* Estilos base para el modo oscuro */
+html.dark {
+    color-scheme: dark;
+}
+
+/* Hero section specific styles */
+.hero-gradient {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+}
+
+/* 3D cube animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(45deg); }
+    50% { transform: translateY(-10px) rotate(45deg); }
+}
+
+.floating-cube {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Text highlight effect */
+.text-highlight {
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }

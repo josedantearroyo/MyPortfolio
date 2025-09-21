@@ -16,8 +16,19 @@ import Header from "../components/Header.astro"
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <meta name="generator" content={Astro.generator} />
     <title>Portafolio Web</title>
+    
+    <!-- Script simple para evitar FOUC -->
+    <script is:inline>
+      // Solo aplicar el tema inicial sin interferir con el selector
+      (function() {
+        const stored = localStorage.getItem('theme');
+        if (stored === 'dark' || (stored === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
-  <body>
+  <body class="text-white transition-colors duration-300">
 	<Header />
     <slot />
   </body>
