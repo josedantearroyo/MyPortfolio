@@ -1,0 +1,67 @@
+---
+import { Icon } from "astro-icon/components"
+
+const SKILLS = [
+    // Frontend
+    { name: "Next.js", icon: "tabler:brand-nextjs", color: "bg-black text-white" },
+    { name: "Tailwind CSS", icon: "tabler:brand-tailwind", color: "bg-teal-500 text-white" },
+    { name: "React", icon: "tabler:brand-react", color: "bg-blue-500 text-white" },
+    { name: "Astro", icon: "tabler:rocket", color: "bg-purple-600 text-white" },
+    { name: "HTML5", icon: "tabler:brand-html5", color: "bg-orange-500 text-white" },
+    { name: "CSS3", icon: "tabler:brand-css3", color: "bg-blue-600 text-white" },
+    
+    // Backend
+    { name: "Node.js", icon: "tabler:brand-nodejs", color: "bg-green-600 text-white" },
+    { name: "Python", icon: "tabler:brand-python", color: "bg-blue-500 text-white" },
+    { name: "Django", icon: "tabler:brand-django", color: "bg-green-700 text-white" },
+    { name: "Flask", icon: "tabler:flask", color: "bg-gray-700 text-white" },
+    { name: "Laravel", icon: "tabler:brand-laravel", color: "bg-red-600 text-white" },
+    
+    // Bases de datos
+    { name: "PostgreSQL", icon: "tabler:database", color: "bg-blue-600 text-white" },
+    { name: "MySQL", icon: "tabler:database", color: "bg-orange-500 text-white" },
+    { name: "MongoDB", icon: "tabler:leaf", color: "bg-green-600 text-white" },
+    { name: "Redis", icon: "tabler:database", color: "bg-red-500 text-white" },
+    { name: "Firebase", icon: "tabler:flame", color: "bg-yellow-500 text-white" },
+    
+    // Herramientas
+    { name: "Git", icon: "tabler:brand-git", color: "bg-orange-600 text-white" },
+    { name: "GitHub", icon: "tabler:brand-github", color: "bg-gray-800 text-white" },
+    { name: "Docker", icon: "tabler:brand-docker", color: "bg-blue-500 text-white" },
+    { name: "AWS", icon: "tabler:cloud", color: "bg-yellow-600 text-white" },
+    
+    // Otros
+    { name: "TypeScript", icon: "tabler:brand-typescript", color: "bg-blue-600 text-white" },
+    { name: "JavaScript", icon: "tabler:brand-javascript", color: "bg-yellow-400 text-black" },
+    { name: "Bootstrap", icon: "tabler:brand-bootstrap", color: "bg-purple-600 text-white" },
+]
+---
+
+<div class="w-full">
+    <!-- Título de la sección -->
+    <div class="text-center mb-12">
+        <h3 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            Tecnologías y Herramientas
+        </h3>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+            Stack tecnológico que uso en mis proyectos
+        </p>
+    </div>
+
+    <!-- Grid de skills compacto -->
+    <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+        {SKILLS.map((skill) => (
+            <div class={`inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg ${skill.color}`}>
+                <Icon name={skill.icon} class="w-4 h-4" />
+                <span>{skill.name}</span>
+            </div>
+        ))}
+    </div>
+</div>
+
+<style>
+    /* Efectos hover suaves */
+    .skill-pill:hover {
+        transform: scale(1.05);
+    }
+</style>
