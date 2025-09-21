@@ -1,0 +1,55 @@
+---
+import { Icon } from "astro-icon/components"
+---
+
+<!-- Sección de Contacto -->
+<div class="text-center px-4 sm:px-6 lg:px-8">
+  <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6 sm:mb-8">
+    Conecta Conmigo
+  </h2>
+
+  <!-- Redes sociales -->
+  <div class="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6 mt-6 sm:mt-8 max-w-4xl mx-auto">
+    <a
+      href="https://github.com/josedantearroyo"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors bg-white dark:bg-gray-800 px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl w-full sm:w-auto max-w-xs"
+    >
+      <Icon name="tabler:brand-github" class="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+      <span class="text-sm sm:text-base">GitHub</span>
+    </a>
+    <a
+      href="https://www.linkedin.com/in/josedarroyo/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex items-center gap-2 text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors bg-white dark:bg-gray-800 px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl w-full sm:w-auto max-w-xs"
+    >
+      <Icon name="tabler:brand-linkedin" class="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+      <span class="text-sm sm:text-base">LinkedIn</span>
+    </a>
+    <a
+      href="mailto:josedantearr18@gmail.com"
+      class="flex items-center gap-2 text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 transition-colors bg-white dark:bg-gray-800 px-4 sm:px-6 py-3 rounded-full shadow-lg hover:shadow-xl w-full sm:w-auto max-w-xs"
+    >
+      <Icon name="tabler:mail" class="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" />
+      <span class="text-sm sm:text-base">Contacto</span>
+    </a>
+  </div>
+</div>
+
+<style>
+  /* Prevenir desbordamiento en pantallas muy pequeñas */
+  @media (max-width: 375px) {
+    .flex.items-center {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+  }
+
+  /* Animación hover suave */
+  a:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+</style>
