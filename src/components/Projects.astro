@@ -82,10 +82,10 @@ const PROJECTS = [
     </div>
 
     <!-- Grid responsive de proyectos -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 px-2 sm:px-0">
         {
             PROJECTS.map(({image, title, description, tags, link, github}) => (
-                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 group">
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 group mx-2 sm:mx-0">
                     <!-- Imagen del proyecto -->
                     <div class="relative h-44 lg:h-48 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
                         <div class="absolute inset-0 flex items-center justify-center">
@@ -186,6 +186,18 @@ const PROJECTS = [
         .grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;
+            padding: 0 0.5rem;
+        }
+        
+        /* Mejores márgenes y espaciado en móviles */
+        article {
+            margin: 0 0.25rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        article:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
     }
 
@@ -209,6 +221,22 @@ const PROJECTS = [
             gap: 2rem;
             max-width: 1400px;
             margin: 0 auto;
+        }
+    }
+
+    /* Mejoras específicas para pantallas muy pequeñas */
+    @media (max-width: 375px) {
+        .grid {
+            padding: 0 0.25rem;
+        }
+        
+        article {
+            margin: 0 0.125rem;
+        }
+        
+        .px-2 {
+            padding-left: 0.25rem;
+            padding-right: 0.25rem;
         }
     }
 </style>

@@ -2,24 +2,29 @@
 import ThemeToggle from "./ThemeToggle.astro"
 const navItems = [
     {
+        title:"Inicio",
+        label:"inicio",
+        url:"#hero",
+    },
+    {
         title:"Habilidades",
         label:"habilidades",
-        url:"/#habilidades",
+        url:"#habilidades",
     },
     {
         title:"Proyectos",
         label:"proyectos",
-        url:"/#proyectos",
+        url:"#proyectos",
     },
     {
         title:"Experiencia",
         label:"experiencia",
-        url:"/#experiencia",
+        url:"#experiencia",
     },
     {
         title:"Contacto",
         label:"contacto",
-        url:"/#contacto",
+        url:"#contacto",
     },
 ]
 ---
@@ -28,14 +33,192 @@ const navItems = [
         {
             navItems.map((link)=>(
                 <a
-                    class="relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400"
+                    class="nav-link relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-400"
                     aria-label={link.label}
                     href={link.url}
+                    data-section={link.label}
                 >
-                    {link.title}      
+                    <span class="hover-text">{link.title}</span>      
                 </a>
             ))
         }
         <ThemeToggle/>
     </nav>
 </header>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Smooth scrolling para los enlaces de navegación
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('[id]');
+    
+    // Configurar smooth scrolling
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = e.currentTarget as HTMLAnchorElement;
+            const href = target.getAttribute('href');
+            
+            if (href) {
+                const targetId = href.startsWith('#') ? href.substring(1) : href;
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    const headerHeight = 80; // Altura aproximada del header
+                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+    
+    // Intersection Observer para detectar qué sección está visible
+    const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -20% 0px', // Detecta cuando hay al menos 60% visible
+        threshold: [0.1, 0.3, 0.5, 0.7] // Múltiples puntos de detección
+    };
+    
+    let currentActiveSection = '';
+    
+    const observer = new IntersectionObserver((entries) => {
+        // Procesar todas las entradas
+        const visibleSections: Array<{id: string, ratio: number, element: Element}> = [];
+        
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                visibleSections.push({
+                    id: entry.target.id,
+                    ratio: entry.intersectionRatio,
+                    element: entry.target
+                });
+            }
+        });
+        
+        if (visibleSections.length > 0) {
+            // Ordenar por ratio de intersección (más visible primero)
+            visibleSections.sort((a, b) => b.ratio - a.ratio);
+            const mostVisible = visibleSections[0];
+            
+            // Solo cambiar si es diferente al actual
+            if (mostVisible.id !== currentActiveSection) {
+                currentActiveSection = mostVisible.id;
+                console.log('🎯 Cambiando a sección:', mostVisible.id, 'Ratio:', mostVisible.ratio.toFixed(2));
+                
+                // Remover clase activa de todos los enlaces
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Mapear IDs de sección a data-section del header
+                let sectionToActivate = mostVisible.id;
+                if (mostVisible.id === 'hero') {
+                    sectionToActivate = 'inicio';
+                }
+                
+                // Agregar clase activa al enlace correspondiente
+                const activeLink = document.querySelector(`[data-section="${sectionToActivate}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                    console.log('✅ Activado:', sectionToActivate);
+                } else {
+                    console.warn('❌ No se encontró el enlace para:', sectionToActivate);
+                }
+            }
+        }
+    }, observerOptions);
+    
+    // Función para verificar y observar elementos
+    const observeSection = (id: string): boolean => {
+        const element = document.getElementById(id);
+        if (element) {
+            observer.observe(element);
+            console.log('👀 Observando:', id, element.tagName);
+            return true;
+        }
+        return false;
+    };
+    
+    // Observar todas las secciones
+    const sectionsToObserve = ['hero', 'habilidades', 'proyectos', 'experiencia', 'contacto'];
+    const observedSections: string[] = [];
+    
+    sectionsToObserve.forEach(sectionId => {
+        if (observeSection(sectionId)) {
+            observedSections.push(sectionId);
+        }
+    });
+    
+    console.log('📋 Secciones observadas:', observedSections);
+    
+    // Verificar después de un pequeño delay por si algunos elementos no están listos
+    setTimeout(() => {
+        sectionsToObserve.forEach(sectionId => {
+            if (!observedSections.includes(sectionId)) {
+                if (observeSection(sectionId)) {
+                    observedSections.push(sectionId);
+                    console.log('🔄 Observando tardíamente:', sectionId);
+                }
+            }
+        });
+    }, 500);
+});
+</script>
+
+<style>
+    /* Estilos para el enlace activo */
+    .nav-link.active .hover-text {
+        color: #3b82f6; /* text-blue-500 */
+        text-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+        font-weight: 500;
+    }
+    
+    .dark .nav-link.active .hover-text {
+        color: #60a5fa; /* text-blue-400 */
+        text-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
+    }
+    
+    /* Animación suave para el cambio de estado */
+    .nav-link {
+        transition: all 0.3s ease;
+    }
+    
+    .hover-text {
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+    
+    /* Resplandor en hover - solo en el texto, sin cambios de tamaño */
+    .nav-link:hover .hover-text {
+        color: #3b82f6;
+        text-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+    }
+    
+    .dark .nav-link:hover .hover-text {
+        color: #60a5fa;
+        text-shadow: 0 0 6px rgba(96, 165, 250, 0.3);
+    }
+    
+    /* Remover hover del enlace principal */
+    .nav-link:hover {
+        color: inherit;
+    }
+    
+    /* Resplandor más intenso para el estado activo */
+    .nav-link.active:hover .hover-text {
+        text-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+    }
+    
+    .dark .nav-link.active:hover .hover-text {
+        text-shadow: 0 0 12px rgba(96, 165, 250, 0.6);
+    }
+    
+    /* Suavizar el scroll de toda la página */
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
