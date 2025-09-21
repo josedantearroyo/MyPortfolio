@@ -11,6 +11,10 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
     "astro": "^5.13.9",
+    "astro-icon": "^1.1.5",
     "tailwindcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "@iconify-json/tabler": "^1.2.23"
   }
 }

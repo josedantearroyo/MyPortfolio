@@ -1,0 +1,19 @@
+---
+const  THEMES = ["light", "dark", "System"]
+// importar los iconos de sol, luna y sistema de astro icons
+import { Icon } from 'astro-icon/components'
+---
+<div class="relative ml-1 mr-1">
+    <button
+        transition:persist
+        id= "theme-toggle-btn"
+        class="appearance-none border-none flex hover:scale-125 transition"
+    >
+        <span class="sr-only">Elige el tema</span>
+        <Icon name="tabler:sun" class="w-6 h-6" />
+        <Icon name="tabler:moon" class="w-6 h-6" />
+        <Icon name="tabler:device-desktop" class="w-6 h-6" />
+
+    </button>
+
+</div>

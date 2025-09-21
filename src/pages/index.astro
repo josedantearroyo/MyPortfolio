@@ -1,34 +1,33 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro"
+// importacion de iconos con astro-icon
+import { Icon } from 'astro-icon/components'
+import SectionContainer from "../components/SectionContainer.astro"
 ---
 
-<Layout>
-	<main class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
-		<div class="max-w-4xl mx-auto">
-			<h1 class="text-4xl font-bold text-gray-800 mb-6 text-center">
-				¡Tailwind CSS está funcionando! 🎉
-			</h1>
-			<div class="bg-white rounded-lg shadow-lg p-6 mb-8">
-				<p class="text-lg text-gray-600 mb-4">
-					Esta es una prueba para verificar que Tailwind CSS está configurado correctamente.
-				</p>
-				<div class="flex flex-wrap gap-4">
-					<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors">
-						Botón Azul
-					</button>
-					<button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition-colors">
-						Botón Verde
-					</button>
-					<button class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition-colors">
-						Botón Morado
-					</button>
-				</div>
-			</div>
-			<Welcome />
-		</div>
-	</main>
+<Layout
+  title="Portafolio - Desarrollo de aplicaciones web con enfoque Full Stack"
+  description="Contacta para crear tu aplicacion web"
+>
+  <main class="px-4">
+    <SectionContainer class="py-16 md:py-36">
+      <h1>DESARROLLADOR <strong>WEB</strong></h1>
+      
+      <!-- Ejemplos de iconos de Tabler usando astro-icon -->
+      <div class="flex gap-4 mt-8">
+        <a href="https://github.com" class="flex items-center gap-2 text-blue-600 hover:text-blue-800">
+          <Icon name="tabler:brand-github" class="w-6 h-6" />
+          GitHub
+        </a>
+        <a href="https://linkedin.com" class="flex items-center gap-2 text-blue-600 hover:text-blue-800">
+          <Icon name="tabler:brand-linkedin" class="w-6 h-6" />
+          LinkedIn
+        </a>
+        <div class="flex items-center gap-2 text-green-600">
+          <Icon name="tabler:mail" class="w-6 h-6" />
+          Contacto
+        </div>
+      </div>
+    </SectionContainer>
+  </main>
 </Layout>
