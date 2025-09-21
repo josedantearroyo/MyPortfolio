@@ -1,0 +1,263 @@
+---
+import { Icon } from "astro-icon/components"
+
+const TAGS = {
+    NEXT:{
+        name:"Next.js",
+        class: "bg-black text-white",
+        icon: "tabler:brand-nextjs",
+    },
+    TAILWIND:{
+        name:"Tailwind CSS",
+        class: "bg-teal-500 text-white",
+        icon: "tabler:brand-tailwind",
+    },
+    REACT:{
+        name:"React",
+        class: "bg-blue-500 text-white",
+        icon: "tabler:brand-react",
+    },
+    JAVASCRIPT:{
+        name:"JavaScript",
+        class: "bg-yellow-500 text-black",
+        icon: "tabler:brand-javascript",
+    },
+    NODEJS:{
+        name:"Node.js",
+        class: "bg-green-600 text-white",
+        icon: "tabler:brand-nodejs",
+    },
+    ASTRO:{
+        name:"Astro",
+        class: "bg-purple-600 text-white",
+        icon: "tabler:rocket",
+    },
+}
+
+const PROJECTS = [
+    {
+        title: "Kimsa Inventory",
+        description: "Software de inventario y facturación para pequeñas y medianas empresas. Sistema completo con gestión de productos, clientes, proveedores y reportes.",
+        link: "https://kimsainventory.com",
+        github: "https://github.com/username/kimsa-inventory",
+        tags: [TAGS.NEXT, TAGS.TAILWIND, TAGS.REACT],
+        image: "/projects/kimsa-inventory.png",
+    },
+    {
+        title: "E-commerce Platform",
+        description: "Plataforma de comercio electrónico moderna con carrito de compras, pagos integrados y panel de administración.",
+        link: "https://example-ecommerce.com",
+        github: "https://github.com/username/ecommerce",
+        tags: [TAGS.REACT, TAGS.NODEJS, TAGS.TAILWIND],
+        image: "/projects/ecommerce.png",
+    },
+    {
+        title: "Portfolio Web",
+        description: "Portafolio personal desarrollado con Astro, con modo oscuro, animaciones y diseño responsive.",
+        link: "https://portfolio.com",
+        github: "https://github.com/username/portfolio",
+        tags: [TAGS.ASTRO, TAGS.TAILWIND, TAGS.JAVASCRIPT],
+        image: "/projects/portfolio.png",
+    },
+    {
+        title: "Task Manager App",
+        description: "Aplicación de gestión de tareas con funcionalidades de colaboración en tiempo real y notificaciones.",
+        link: "https://taskmanager.com",
+        github: "https://github.com/username/taskmanager",
+        tags: [TAGS.NEXT, TAGS.REACT, TAGS.TAILWIND],
+        image: "/projects/taskmanager.png",
+    },
+]
+---
+
+<div class="w-full">
+    <!-- Título de la sección -->
+    <div class="mb-8">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            Proyectos Destacados
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400">
+            Una selección de mis trabajos más recientes y destacados
+        </p>
+    </div>
+
+    <!-- Carrusel de proyectos -->
+    <div class="relative">
+        <div class="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory scrollbar-hide" id="projects-carousel">
+            {
+                PROJECTS.map(({image, title, description, tags, link, github}) => (
+                    <article class="flex-none w-80 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 snap-start group">
+                        <!-- Imagen del proyecto -->
+                        <div class="relative h-48 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <Icon name="tabler:photo" class="w-16 h-16 text-gray-400 dark:text-gray-500" />
+                            </div>
+                            <!-- Overlay con enlaces -->
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                                <a 
+                                    href={link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-all duration-200 flex items-center gap-2"
+                                >
+                                    <Icon name="tabler:external-link" class="w-4 h-4" />
+                                    Ver Demo
+                                </a>
+                                <a 
+                                    href={github} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    class="bg-white/20 backdrop-blur-sm border border-white/30 text-white px-4 py-2 rounded-lg hover:bg-white/30 transition-all duration-200 flex items-center gap-2"
+                                >
+                                    <Icon name="tabler:brand-github" class="w-4 h-4" />
+                                    Código
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Contenido de la tarjeta -->
+                        <div class="p-6">
+                            <!-- Título -->
+                            <h4 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                                {title}
+                            </h4>
+                            
+                            <!-- Descripción -->
+                            <p class="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
+                                {description}
+                            </p>
+
+                            <!-- Tags -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                {tags.map((tag) => (
+                                    <span class={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium ${tag.class}`}>
+                                        <Icon name={tag.icon} class="w-3 h-3" />
+                                        {tag.name}
+                                    </span>
+                                ))}
+                            </div>
+
+                            <!-- Enlaces -->
+                            <div class="flex gap-3">
+                                <a 
+                                    href={link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded-lg transition-colors duration-200 text-sm font-medium"
+                                >
+                                    Ver Proyecto
+                                </a>
+                                <a 
+                                    href={github} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    class="bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 p-2 rounded-lg transition-colors duration-200"
+                                    title="Ver código en GitHub"
+                                >
+                                    <Icon name="tabler:brand-github" class="w-5 h-5" />
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+
+        <!-- Indicadores de scroll -->
+        <div class="flex justify-center mt-6 gap-2">
+            {PROJECTS.map((_, index) => (
+                <button 
+                    class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-blue-500 dark:hover:bg-blue-400 transition-colors duration-200"
+                    data-slide={index}
+                ></button>
+            ))}
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Ocultar scrollbar pero mantener funcionalidad */
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Limitar texto a 3 líneas */
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Animación suave para las tarjetas */
+    article {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    article:hover {
+        transform: translateY(-4px);
+    }
+</style>
+
+<script>
+    // Funcionalidad del carrusel
+    document.addEventListener('DOMContentLoaded', () => {
+        const carousel = document.getElementById('projects-carousel');
+        const indicators = document.querySelectorAll('[data-slide]');
+        
+        if (!carousel) return;
+
+        // Función para scrollear a un proyecto específico
+        const scrollToProject = (index: number) => {
+            const cards = carousel.children;
+            if (cards[index]) {
+                cards[index].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'start'
+                });
+            }
+        };
+
+        // Agregar event listeners a los indicadores
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                scrollToProject(index);
+                updateActiveIndicator(index);
+            });
+        });
+
+        // Actualizar indicador activo
+        const updateActiveIndicator = (activeIndex: number) => {
+            indicators.forEach((indicator, index) => {
+                if (index === activeIndex) {
+                    indicator.classList.add('bg-blue-500', 'dark:bg-blue-400');
+                    indicator.classList.remove('bg-gray-300', 'dark:bg-gray-600');
+                } else {
+                    indicator.classList.remove('bg-blue-500', 'dark:bg-blue-400');
+                    indicator.classList.add('bg-gray-300', 'dark:bg-gray-600');
+                }
+            });
+        };
+
+        // Detectar scroll para actualizar indicadores
+        let scrollTimeout: ReturnType<typeof setTimeout>;
+        carousel.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrollLeft = carousel.scrollLeft;
+                const cardWidth = (carousel.children[0] as HTMLElement)?.offsetWidth || 0;
+                const gap = 24; // 1.5rem en px
+                const activeIndex = Math.round(scrollLeft / (cardWidth + gap));
+                updateActiveIndicator(Math.min(activeIndex, indicators.length - 1));
+            }, 100);
+        });
+
+        // Inicializar primer indicador como activo
+        updateActiveIndicator(0);
+    });
+</script>
