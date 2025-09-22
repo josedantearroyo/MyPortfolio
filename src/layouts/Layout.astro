@@ -20,7 +20,7 @@ import Footer from "../components/Footer.astro"
     
     <!-- Script simple para evitar FOUC -->
     <script is:inline>
-      // Solo aplicar el tema inicial sin interferir con el selector
+        // Solo aplicar el tema inicial sin interferir con el selector
       (function() {
         const stored = localStorage.getItem('theme');
         if (stored === 'dark' || (stored === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {

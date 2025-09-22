@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components"
+import portfolioImage from "../assets/images/portafolio.png"
 
 const TAGS = {
     NEXT:{
@@ -32,6 +33,16 @@ const TAGS = {
         class: "bg-purple-600 text-white",
         icon: "tabler:rocket",
     },
+    MYSQL:{
+        name:"MySQL",
+        class: "bg-blue-700 text-white",
+        icon: "tabler:brand-mysql",
+    },
+    LARAVEL:{
+        name:"Laravel",
+        class: "bg-red-600 text-white",
+        icon: "tabler:brand-laravel",
+    },
 }
 
 const PROJECTS = [
@@ -52,19 +63,19 @@ const PROJECTS = [
         image: "/projects/ecommerce.png",
     },
     {
-        title: "Portfolio Web",
+        title: "Portafolio Web",
         description: "Portafolio personal desarrollado con Astro, con modo oscuro, animaciones y diseño responsive.",
-        link: "https://portfolio.com",
-        github: "https://github.com/username/portfolio",
+        link: "",
+        github: "https://github.com/josedantearroyo/MyPortfolio",
         tags: [TAGS.ASTRO, TAGS.TAILWIND, TAGS.JAVASCRIPT],
-        image: "/projects/portfolio.png",
+        image: portfolioImage,
     },
     {
-        title: "Task Manager App",
-        description: "Aplicación de gestión de tareas con funcionalidades de colaboración en tiempo real y notificaciones.",
+        title: "App web gestion de boletas",
+        description: "Aplicación de digitalización y gestion de boletas para la UGEL ANDAHUAYLAS con las funcionalides de digitalización, búsqueda y reportes.",
         link: "https://taskmanager.com",
         github: "https://github.com/username/taskmanager",
-        tags: [TAGS.NEXT, TAGS.REACT, TAGS.TAILWIND],
+        tags: [TAGS.MYSQL, TAGS.REACT, TAGS.JAVASCRIPT],
         image: "/projects/taskmanager.png",
     },
 ]
@@ -85,12 +96,20 @@ const PROJECTS = [
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 px-2 sm:px-0">
         {
             PROJECTS.map(({image, title, description, tags, link, github}) => (
-                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 group mx-2 sm:mx-0">
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 group mx-2 sm:mx-0">
                     <!-- Imagen del proyecto -->
-                    <div class="relative h-44 lg:h-48 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <Icon name="tabler:photo" class="w-12 h-12 text-gray-400 dark:text-gray-500" />
-                        </div>
+                    <div class="relative h-52 lg:h-56 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 overflow-hidden">
+                        {image ? (
+                            <img 
+                                src={typeof image === 'string' ? image : image.src} 
+                                alt={title}
+                                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                            />
+                        ) : (
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <Icon name="tabler:photo" class="w-12 h-12 text-gray-400 dark:text-gray-500" />
+                            </div>
+                        )}
                         <!-- Overlay con enlaces -->
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
                             <a 
