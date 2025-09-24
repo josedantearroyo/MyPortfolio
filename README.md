@@ -2,11 +2,11 @@
 
 
 
-[![Astro](https://img.shields.io/badge/Astro-5.13.9-FF5D01?logo=astro&logoColor=white)](https://astro.build)```sh
+[![Astro](https://img.shields.io/badge/Astro-5.13.9-FF5D01?logo=astro&logoColor=white)](https://astro.build)
 
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.13-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)npm create astro@latest -- --template basics
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.1.13-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)```
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 
 
