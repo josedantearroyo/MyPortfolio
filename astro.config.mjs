@@ -6,7 +6,14 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [icon()],
+  integrations: [
+    icon({
+      include: {
+        tabler: ["*"], // Incluir todos los iconos de Tabler
+        "simple-icons": ["*"], // Incluir todos los iconos de Simple Icons
+      },
+    })
+  ],
   vite: {
     plugins: [tailwindcss()]
   }

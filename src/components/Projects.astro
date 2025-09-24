@@ -214,16 +214,19 @@ const PROJECTS = [
                         <!-- Contenedor de descripción con altura fija -->
                         <div class="flex-grow mb-4">
                             <div class={`description-container relative project-${index}`}>
-                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed description-text text-justify" data-full-text={description}>
-                                    {description}
-                                    {description.length > 120 && (
-                                        <span class="read-more-link hidden md:inline text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xs font-medium cursor-pointer ml-1 transition-colors duration-200" data-index={index}>
-                                            Ver más
-                                        </span>
-                                    )}
+                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed description-text" data-full-text={description}>
+                                    {description.length > 120 ? description.substring(0, 120) + "..." : description}
                                 </p>
                                 {description.length > 120 && (
-                                    <div class="overlay-gradient hidden md:block absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white dark:from-gray-800 via-white/80 dark:via-gray-800/80 to-transparent pointer-events-none"></div>
+                                    <div class="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none fade-gradient"></div>
+                                )}
+                                {description.length > 120 && (
+                                    <button 
+                                        class="read-more-btn text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xs font-medium mt-2 transition-colors duration-200"
+                                        data-index={index}
+                                    >
+                                        Ver más
+                                    </button>
                                 )}
                             </div>
                         </div>
@@ -271,151 +274,63 @@ const PROJECTS = [
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Funcionalidad de "Ver más" solo para pantallas medianas y grandes
-        if (window.innerWidth >= 768) {
-            initializeReadMore();
-        }
-        
-        // Reinicializar en cambio de tamaño de ventana
-        window.addEventListener('resize', function() {
-            if (window.innerWidth >= 768) {
-                initializeReadMore();
-            } else {
-                resetToFullText();
-            }
-        });
-        
-        function initializeReadMore() {
-            document.querySelectorAll('.description-text').forEach((text, index) => {
-                const fullText = text.getAttribute('data-full-text');
-                if (!fullText || fullText.length <= 120) return;
+        // Funcionalidad de "Ver más"
+        document.querySelectorAll('.read-more-btn').forEach(button => {
+            button.addEventListener('click', function(event) {
+                const target = event.target;
+                if (!(target instanceof HTMLButtonElement)) return;
                 
-                const container = text.closest('.description-container');
+                const index = target.getAttribute('data-index');
+                const container = target.closest('.description-container');
                 if (!container) return;
                 
-                // Configurar texto truncado
-                const truncatedText = fullText.substring(0, 120) + "...";
-                const readMoreLink = text.querySelector('.read-more-link');
+                const text = container.querySelector('.description-text');
+                if (!text) return;
                 
-                // Crear el contenido truncado con el enlace inline
-                text.innerHTML = truncatedText + ' <span class="read-more-link text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xs font-medium cursor-pointer transition-colors duration-200" data-index="' + index + '">Ver más</span>';
-                
-                // Configurar altura fija para evitar saltos
-                const currentHeight = container.scrollHeight;
-                if (container instanceof HTMLElement) {
-                    container.style.height = currentHeight + 'px';
-                    container.style.overflow = 'hidden';
-                }
-                
-                // Mostrar overlay
-                const overlay = container.querySelector('.overlay-gradient');
-                if (overlay instanceof HTMLElement) {
-                    overlay.style.opacity = '1';
-                }
-            });
-        }
-        
-        function resetToFullText() {
-            document.querySelectorAll('.description-text').forEach(text => {
                 const fullText = text.getAttribute('data-full-text');
-                if (fullText) {
+                if (!fullText) return;
+                
+                const fadeGradient = container.querySelector('.fade-gradient');
+                const tagsContainer = document.querySelector(`.tags-${index}`);
+                
+                if (target.textContent === 'Ver más') {
+                    // Expandir
                     text.textContent = fullText;
-                    const container = text.closest('.description-container');
-                    if (container instanceof HTMLElement) {
-                        container.style.height = 'auto';
-                        container.style.overflow = 'visible';
+                    target.textContent = 'Ver menos';
+                    if (fadeGradient) fadeGradient.remove();
+                    
+                    // Ocultar tags con animación
+                    if (tagsContainer && tagsContainer instanceof HTMLElement) {
+                        tagsContainer.style.maxHeight = tagsContainer.scrollHeight + 'px';
+                        setTimeout(() => {
+                            if (tagsContainer instanceof HTMLElement) {
+                                tagsContainer.style.maxHeight = '0';
+                                tagsContainer.style.opacity = '0';
+                                tagsContainer.style.marginBottom = '0';
+                            }
+                        }, 50);
+                    }
+                } else {
+                    // Contraer
+                    const truncatedText = fullText.length > 120 ? fullText.substring(0, 120) + "..." : fullText;
+                    text.textContent = truncatedText;
+                    target.textContent = 'Ver más';
+                    
+                    // Mostrar tags con animación
+                    if (tagsContainer && tagsContainer instanceof HTMLElement) {
+                        tagsContainer.style.maxHeight = 'none';
+                        tagsContainer.style.opacity = '1';
+                        tagsContainer.style.marginBottom = '1rem';
+                    }
+                    
+                    // Recrear degradado
+                    if (fullText.length > 120) {
+                        const newGradient = document.createElement('div');
+                        newGradient.className = 'absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none fade-gradient';
+                        container.appendChild(newGradient);
                     }
                 }
             });
-            
-            // Ocultar overlays
-            document.querySelectorAll('.overlay-gradient').forEach(overlay => {
-                if (overlay instanceof HTMLElement) {
-                    overlay.style.opacity = '0';
-                }
-            });
-        }
-        
-        // Event delegation para los enlaces "Ver más"
-        document.addEventListener('click', function(event) {
-            const target = event.target;
-            if (!(target instanceof HTMLElement) || !target.classList.contains('read-more-link')) return;
-            
-            const container = target.closest('.description-container');
-            if (!container) return;
-            
-            const text = container.querySelector('.description-text');
-            if (!text) return;
-            
-            const fullText = text.getAttribute('data-full-text');
-            if (!fullText) return;
-            
-            const overlay = container.querySelector('.overlay-gradient');
-            const tagsContainer = container.closest('.p-5')?.querySelector('.tags-container');
-            
-            if (target.textContent === 'Ver más') {
-                // Expandir suavemente
-                text.innerHTML = fullText + ' <span class="read-more-link text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xs font-medium cursor-pointer transition-colors duration-200">Ver menos</span>';
-                
-                // Ocultar overlay con transición suave
-                if (overlay instanceof HTMLElement) {
-                    overlay.style.transition = 'opacity 0.3s ease';
-                    overlay.style.opacity = '0';
-                }
-                
-                // Ocultar tags suavemente con overlay gradual
-                if (tagsContainer instanceof HTMLElement) {
-                    tagsContainer.style.transition = 'all 0.4s ease';
-                    tagsContainer.style.transform = 'translateY(-10px)';
-                    tagsContainer.style.opacity = '0.3';
-                    
-                    // Crear overlay adicional sobre las tags
-                    const tagsOverlay = document.createElement('div');
-                    tagsOverlay.className = 'tags-overlay absolute inset-0 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none z-5';
-                    tagsOverlay.style.transition = 'opacity 0.4s ease';
-                    tagsContainer.style.position = 'relative';
-                    tagsContainer.appendChild(tagsOverlay);
-                }
-                
-                // Ajustar altura del contenedor
-                if (container instanceof HTMLElement) {
-                    const newHeight = container.scrollHeight;
-                    container.style.transition = 'height 0.4s ease';
-                    container.style.height = newHeight + 'px';
-                }
-                
-            } else if (target.textContent === 'Ver menos') {
-                // Contraer suavemente
-                const truncatedText = fullText.substring(0, 120) + "...";
-                text.innerHTML = truncatedText + ' <span class="read-more-link text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xs font-medium cursor-pointer transition-colors duration-200">Ver más</span>';
-                
-                // Mostrar overlay gradualmente
-                if (overlay instanceof HTMLElement) {
-                    overlay.style.transition = 'opacity 0.3s ease';
-                    overlay.style.opacity = '1';
-                }
-                
-                // Restaurar tags suavemente
-                if (tagsContainer instanceof HTMLElement) {
-                    tagsContainer.style.transition = 'all 0.4s ease';
-                    tagsContainer.style.transform = 'translateY(0)';
-                    tagsContainer.style.opacity = '1';
-                    
-                    // Remover overlay de tags
-                    const tagsOverlay = tagsContainer.querySelector('.tags-overlay');
-                    if (tagsOverlay instanceof HTMLElement) {
-                        tagsOverlay.style.opacity = '0';
-                        setTimeout(() => tagsOverlay.remove(), 400);
-                    }
-                }
-                
-                // Ajustar altura del contenedor
-                if (container instanceof HTMLElement) {
-                    const newHeight = container.scrollHeight;
-                    container.style.transition = 'height 0.4s ease';
-                    container.style.height = newHeight + 'px';
-                }
-            }
         });
     });
 </script>
@@ -434,81 +349,34 @@ const PROJECTS = [
     /* Contenedor de descripción con altura controlada */
     .description-container {
         position: relative;
-        transition: height 0.4s ease;
-    }
-
-    /* Overlay gradual más suave - SOLO para pantallas >= 768px */
-    .overlay-gradient {
-        transition: opacity 0.3s ease;
-        z-index: 5;
-    }
-
-    /* Enlace "Ver más" inline */
-    .read-more-link {
-        transition: all 0.2s ease;
-        border-bottom: 1px solid transparent;
-    }
-
-    .read-more-link:hover {
-        border-bottom-color: currentColor;
+        min-height: 60px;
     }
 
     /* Animaciones para las tags */
     .tags-container {
-        transition: all 0.4s ease;
+        overflow: hidden;
+        transition: max-height 0.3s ease, opacity 0.3s ease, margin-bottom 0.3s ease;
+    }
+
+    /* Degradado suave para texto truncado */
+    .fade-gradient {
+        transition: opacity 0.3s ease;
+    }
+
+    /* Botón de leer más */
+    .read-more-btn {
         position: relative;
+        z-index: 10;
+        background: white;
     }
 
-    /* Overlay para tags */
-    .tags-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(to top, white, transparent);
-        pointer-events: none;
-        z-index: 5;
-        transition: opacity 0.4s ease;
-    }
-
-    .dark .tags-overlay {
-        background: linear-gradient(to top, rgb(31 41 55), transparent);
+    /* Estilos para modo oscuro */
+    .dark .read-more-btn {
+        background: rgb(31 41 55);
     }
 
     /* Responsividad mejorada */
-    @media (max-width: 767px) {
-        /* En móviles, desactivar completamente la funcionalidad de ver más */
-        .overlay-gradient {
-            display: none !important;
-            opacity: 0 !important;
-        }
-        
-        .read-more-link {
-            display: none !important;
-        }
-        
-        .description-container {
-            height: auto !important;
-            overflow: visible !important;
-        }
-        
-        .description-text {
-            /* Mostrar texto completo en móviles siempre */
-            display: block !important;
-        }
-        
-        .tags-container {
-            /* Asegurar que las tags sean completamente visibles en móviles */
-            opacity: 1 !important;
-            transform: none !important;
-            position: static !important;
-        }
-        
-        .tags-overlay {
-            display: none !important;
-        }
-        
+    @media (max-width: 768px) {
         .grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;
@@ -517,18 +385,17 @@ const PROJECTS = [
         
         article {
             margin: 0 0.25rem;
-            min-height: auto;
+            min-height: 380px;
+        }
+
+        .description-container {
+            min-height: 50px;
         }
     }
 
-    @media (min-width: 768px) and (max-width: 1024px) {
+    @media (min-width: 769px) and (max-width: 1024px) {
         .grid {
             grid-template-columns: repeat(2, 1fr);
-        }
-        
-        /* En tablets, altura mínima un poco menor */
-        article {
-            min-height: 380px;
         }
     }
 
@@ -545,33 +412,5 @@ const PROJECTS = [
 
     article:hover {
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    }
-
-    /* Transiciones suaves para todos los elementos interactivos */
-    .tags-container span {
-        transition: all 0.2s ease;
-    }
-
-    .tags-container span:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    /* Asegurar que en móviles el texto se muestre completo sin restricciones */
-    @media (max-width: 767px) {
-        .description-text {
-            max-height: none !important;
-            overflow: visible !important;
-            -webkit-line-clamp: unset !important;
-            white-space: normal !important;
-            text-align: justify !important;
-        }
-    }
-
-    /* Justificación del texto en todas las pantallas */
-    .description-text {
-        text-align: justify;
-        hyphens: auto;
-        word-break: break-word;
     }
 </style>
