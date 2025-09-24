@@ -3,53 +3,53 @@ import { Icon } from "astro-icon/components"
 
 const SKILLS = [
     // Frontend
-    { name: "React", icon: "simple-icons:react", color: "bg-blue-500 text-white" },
-    { name: "Next.js", icon: "simple-icons:nextdotjs", color: "bg-black text-white" },
-    { name: "Astro", icon: "simple-icons:astro", color: "bg-purple-600 text-white" },
-    { name: "Vue.js", icon: "simple-icons:vuedotjs", color: "bg-green-500 text-white" },
-    { name: "Tailwind CSS", icon: "simple-icons:tailwindcss", color: "bg-teal-500 text-white" },
-    { name: "Bootstrap", icon: "simple-icons:bootstrap", color: "bg-purple-600 text-white" },
-    { name: "HTML5", icon: "simple-icons:html5", color: "bg-orange-500 text-white" },
-    { name: "CSS3", icon: "simple-icons:css3", color: "bg-blue-600 text-white" },
+    { name: "React", icon: "simple-icons:react", color: "bg-blue-500 text-white", glowClass: "skill-react" },
+    { name: "Next.js", icon: "simple-icons:nextdotjs", color: "bg-black text-white", glowClass: "skill-nextjs" },
+    { name: "Astro", icon: "simple-icons:astro", color: "bg-purple-600 text-white", glowClass: "skill-astro" },
+    { name: "Vue.js", icon: "simple-icons:vuedotjs", color: "bg-green-500 text-white", glowClass: "skill-vue" },
+    { name: "Tailwind CSS", icon: "simple-icons:tailwindcss", color: "bg-teal-500 text-white", glowClass: "skill-tailwind" },
+    { name: "Bootstrap", icon: "simple-icons:bootstrap", color: "bg-purple-600 text-white", glowClass: "skill-bootstrap" },
+    { name: "HTML5", icon: "simple-icons:html5", color: "bg-orange-500 text-white", glowClass: "skill-html" },
+    { name: "CSS3", icon: "simple-icons:css3", color: "bg-blue-600 text-white", glowClass: "skill-css" },
     
     // Backend & Languages
-    { name: "Java", icon: "simple-icons:openjdk", color: "bg-red-600 text-white" },
-    { name: "Spring Boot", icon: "simple-icons:springboot", color: "bg-green-600 text-white" },
-    { name: "Spring", icon: "simple-icons:spring", color: "bg-green-500 text-white" },
-    { name: "Node.js", icon: "simple-icons:nodedotjs", color: "bg-green-600 text-white" },
-    { name: "Express.js", icon: "simple-icons:express", color: "bg-gray-700 text-white" },
-    { name: "Python", icon: "simple-icons:python", color: "bg-blue-500 text-white" },
-    { name: "Django", icon: "simple-icons:django", color: "bg-green-700 text-white" },
-    { name: "Flask", icon: "simple-icons:flask", color: "bg-gray-700 text-white" },
-    { name: "PHP", icon: "simple-icons:php", color: "bg-purple-700 text-white" },
-    { name: "Laravel", icon: "simple-icons:laravel", color: "bg-red-600 text-white" },
-    { name: "C#", icon: "simple-icons:csharp", color: "bg-purple-600 text-white" },
-    { name: ".NET", icon: "simple-icons:dotnet", color: "bg-blue-600 text-white" },
+    { name: "Java", icon: "simple-icons:oracle", color: "bg-red-600 text-white", glowClass: "skill-java" },
+    { name: "Spring Boot", icon: "simple-icons:springboot", color: "bg-green-600 text-white", glowClass: "skill-springboot" },
+    { name: "Spring", icon: "simple-icons:spring", color: "bg-green-500 text-white", glowClass: "skill-spring" },
+    { name: "Node.js", icon: "simple-icons:nodedotjs", color: "bg-green-600 text-white", glowClass: "skill-nodejs" },
+    { name: "Express.js", icon: "simple-icons:express", color: "bg-gray-700 text-white", glowClass: "skill-express" },
+    { name: "Python", icon: "simple-icons:python", color: "bg-blue-500 text-white", glowClass: "skill-python" },
+    { name: "Django", icon: "simple-icons:django", color: "bg-green-700 text-white", glowClass: "skill-django" },
+    { name: "Flask", icon: "simple-icons:flask", color: "bg-gray-700 text-white", glowClass: "skill-flask" },
+    { name: "PHP", icon: "simple-icons:php", color: "bg-purple-700 text-white", glowClass: "skill-php" },
+    { name: "Laravel", icon: "simple-icons:laravel", color: "bg-red-600 text-white", glowClass: "skill-laravel" },
+    { name: "C#", icon: "simple-icons:csharp", color: "bg-purple-600 text-white", glowClass: "skill-csharp" },
+    { name: ".NET", icon: "simple-icons:dotnet", color: "bg-blue-600 text-white", glowClass: "skill-dotnet" },
     
     // Bases de datos
-    { name: "PostgreSQL", icon: "simple-icons:postgresql", color: "bg-blue-600 text-white" },
-    { name: "MySQL", icon: "simple-icons:mysql", color: "bg-orange-500 text-white" },
-    { name: "MongoDB", icon: "simple-icons:mongodb", color: "bg-green-600 text-white" },
-    { name: "Redis", icon: "simple-icons:redis", color: "bg-red-500 text-white" },
-    { name: "Firebase", icon: "simple-icons:firebase", color: "bg-yellow-500 text-white" },
-    { name: "SQLite", icon: "simple-icons:sqlite", color: "bg-blue-400 text-white" },
+    { name: "PostgreSQL", icon: "simple-icons:postgresql", color: "bg-blue-600 text-white", glowClass: "skill-postgresql" },
+    { name: "MySQL", icon: "simple-icons:mysql", color: "bg-orange-500 text-white", glowClass: "skill-mysql" },
+    { name: "MongoDB", icon: "simple-icons:mongodb", color: "bg-green-600 text-white", glowClass: "skill-mongodb" },
+    { name: "Redis", icon: "simple-icons:redis", color: "bg-red-500 text-white", glowClass: "skill-redis" },
+    { name: "Firebase", icon: "simple-icons:firebase", color: "bg-yellow-500 text-white", glowClass: "skill-firebase" },
+    { name: "SQLite", icon: "simple-icons:sqlite", color: "bg-blue-400 text-white", glowClass: "skill-sqlite" },
     
     // Cloud & DevOps
-    { name: "AWS", icon: "simple-icons:amazonwebservices", color: "bg-yellow-600 text-white" },
-    { name: "Google Cloud", icon: "simple-icons:googlecloud", color: "bg-blue-500 text-white" },
-    { name: "Azure", icon: "simple-icons:microsoftazure", color: "bg-blue-600 text-white" },
-    { name: "Docker", icon: "simple-icons:docker", color: "bg-blue-500 text-white" },
-    { name: "Kubernetes", icon: "simple-icons:kubernetes", color: "bg-blue-600 text-white" },
+    { name: "AWS", icon: "simple-icons:amazonwebservices", color: "bg-yellow-600 text-white", glowClass: "skill-aws" },
+    { name: "Google Cloud", icon: "simple-icons:googlecloud", color: "bg-blue-500 text-white", glowClass: "skill-gcloud" },
+    { name: "Azure", icon: "simple-icons:microsoftazure", color: "bg-blue-600 text-white", glowClass: "skill-azure" },
+    { name: "Docker", icon: "simple-icons:docker", color: "bg-blue-500 text-white", glowClass: "skill-docker" },
+    { name: "Kubernetes", icon: "simple-icons:kubernetes", color: "bg-blue-600 text-white", glowClass: "skill-kubernetes" },
     
     // Herramientas & Otros
-    { name: "Git", icon: "simple-icons:git", color: "bg-orange-600 text-white" },
-    { name: "GitHub", icon: "simple-icons:github", color: "bg-gray-800 text-white" },
-    { name: "GitLab", icon: "simple-icons:gitlab", color: "bg-orange-500 text-white" },
-    { name: "TypeScript", icon: "simple-icons:typescript", color: "bg-blue-600 text-white" },
-    { name: "JavaScript", icon: "simple-icons:javascript", color: "bg-yellow-400 text-black" },
-    { name: "Linux", icon: "simple-icons:linux", color: "bg-black text-white" },
-    { name: "Nginx", icon: "simple-icons:nginx", color: "bg-green-500 text-white" },
-    { name: "Apache", icon: "simple-icons:apache", color: "bg-red-600 text-white" },
+    { name: "Git", icon: "simple-icons:git", color: "bg-orange-600 text-white", glowClass: "skill-git" },
+    { name: "GitHub", icon: "simple-icons:github", color: "bg-gray-800 text-white", glowClass: "skill-github" },
+    { name: "GitLab", icon: "simple-icons:gitlab", color: "bg-orange-500 text-white", glowClass: "skill-gitlab" },
+    { name: "TypeScript", icon: "simple-icons:typescript", color: "bg-blue-600 text-white", glowClass: "skill-typescript" },
+    { name: "JavaScript", icon: "simple-icons:javascript", color: "bg-yellow-400 text-black", glowClass: "skill-javascript" },
+    { name: "Linux", icon: "simple-icons:linux", color: "bg-black text-white", glowClass: "skill-linux" },
+    { name: "Nginx", icon: "simple-icons:nginx", color: "bg-green-500 text-white", glowClass: "skill-nginx" },
+    { name: "Apache", icon: "simple-icons:apache", color: "bg-red-600 text-white", glowClass: "skill-apache" },
 ]
 ---
 
@@ -67,7 +67,7 @@ const SKILLS = [
     <!-- Grid de skills compacto -->
     <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
         {SKILLS.map((skill) => (
-            <div class={`inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg ${skill.color}`}>
+            <div class={`inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 ${skill.color} ${skill.glowClass}`}>
                 <Icon name={skill.icon} class="w-4 h-4" />
                 <span>{skill.name}</span>
             </div>
@@ -76,8 +76,64 @@ const SKILLS = [
 </div>
 
 <style>
-    /* Efectos hover suaves */
-    .skill-pill:hover {
-        transform: scale(1.05);
+    /* Efectos de resplandor específicos por color */
+    
+    /* Frontend */
+    .skill-react:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3); }
+    .skill-nextjs:hover { box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(55, 65, 81, 0.4); }
+    .skill-astro:hover { box-shadow: 0 0 20px rgba(147, 51, 234, 0.6), 0 0 40px rgba(147, 51, 234, 0.3); }
+    .skill-vue:hover { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.3); }
+    .skill-tailwind:hover { box-shadow: 0 0 20px rgba(20, 184, 166, 0.6), 0 0 40px rgba(20, 184, 166, 0.3); }
+    .skill-bootstrap:hover { box-shadow: 0 0 20px rgba(147, 51, 234, 0.6), 0 0 40px rgba(147, 51, 234, 0.3); }
+    .skill-html:hover { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6), 0 0 40px rgba(249, 115, 22, 0.3); }
+    .skill-css:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
+    
+    /* Backend & Languages */
+    .skill-java:hover { box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 40px rgba(220, 38, 38, 0.3); }
+    .skill-springboot:hover { box-shadow: 0 0 20px rgba(22, 163, 74, 0.6), 0 0 40px rgba(22, 163, 74, 0.3); }
+    .skill-spring:hover { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.3); }
+    .skill-nodejs:hover { box-shadow: 0 0 20px rgba(22, 163, 74, 0.6), 0 0 40px rgba(22, 163, 74, 0.3); }
+    .skill-express:hover { box-shadow: 0 0 20px rgba(55, 65, 81, 0.6), 0 0 40px rgba(55, 65, 81, 0.3); }
+    .skill-python:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3); }
+    .skill-django:hover { box-shadow: 0 0 20px rgba(21, 128, 61, 0.6), 0 0 40px rgba(21, 128, 61, 0.3); }
+    .skill-flask:hover { box-shadow: 0 0 20px rgba(55, 65, 81, 0.6), 0 0 40px rgba(55, 65, 81, 0.3); }
+    .skill-php:hover { box-shadow: 0 0 20px rgba(126, 34, 206, 0.6), 0 0 40px rgba(126, 34, 206, 0.3); }
+    .skill-laravel:hover { box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 40px rgba(220, 38, 38, 0.3); }
+    .skill-csharp:hover { box-shadow: 0 0 20px rgba(147, 51, 234, 0.6), 0 0 40px rgba(147, 51, 234, 0.3); }
+    .skill-dotnet:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
+    
+    /* Bases de datos */
+    .skill-postgresql:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
+    .skill-mysql:hover { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6), 0 0 40px rgba(249, 115, 22, 0.3); }
+    .skill-mongodb:hover { box-shadow: 0 0 20px rgba(22, 163, 74, 0.6), 0 0 40px rgba(22, 163, 74, 0.3); }
+    .skill-redis:hover { box-shadow: 0 0 20px rgba(239, 68, 68, 0.6), 0 0 40px rgba(239, 68, 68, 0.3); }
+    .skill-firebase:hover { box-shadow: 0 0 20px rgba(234, 179, 8, 0.6), 0 0 40px rgba(234, 179, 8, 0.3); }
+    .skill-sqlite:hover { box-shadow: 0 0 20px rgba(96, 165, 250, 0.6), 0 0 40px rgba(96, 165, 250, 0.3); }
+    
+    /* Cloud & DevOps */
+    .skill-aws:hover { box-shadow: 0 0 20px rgba(202, 138, 4, 0.6), 0 0 40px rgba(202, 138, 4, 0.3); }
+    .skill-gcloud:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3); }
+    .skill-azure:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
+    .skill-docker:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3); }
+    .skill-kubernetes:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
+    
+    /* Herramientas & Otros */
+    .skill-git:hover { box-shadow: 0 0 20px rgba(234, 88, 12, 0.6), 0 0 40px rgba(234, 88, 12, 0.3); }
+    .skill-github:hover { box-shadow: 0 0 20px rgba(31, 41, 55, 0.6), 0 0 40px rgba(55, 65, 81, 0.4); }
+    .skill-gitlab:hover { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6), 0 0 40px rgba(249, 115, 22, 0.3); }
+    .skill-typescript:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
+    .skill-javascript:hover { box-shadow: 0 0 20px rgba(250, 204, 21, 0.6), 0 0 40px rgba(250, 204, 21, 0.3); }
+    .skill-linux:hover { box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(55, 65, 81, 0.4); }
+    .skill-nginx:hover { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.3); }
+    .skill-apache:hover { box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 40px rgba(220, 38, 38, 0.3); }
+    
+    /* Transiciones suaves */
+    div[class*="skill-"] {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Efectos adicionales en hover */
+    div[class*="skill-"]:hover {
+        transform: translateY(-2px) scale(1.05);
     }
 </style>
