@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components"
 import portfolioImage from "../assets/images/portafolio.png"
+import AppWebUgel from "../assets/images/sistema_ugel2024.png"
 
 const TAGS = {
     NEXT:{
@@ -139,11 +140,13 @@ const PROJECTS = [
     },
     {
         title: "App Web Gestión de Boletas",
-        description: "Aplicación web para digitalización y gestión de boletas para la UGEL ANDAHUAYLAS con funcionalidades de digitalización, búsqueda avanzada y reportes detallados.",
-        link: "https://taskmanager.com",
-        github: "https://github.com/username/taskmanager",
-        tags: [TAGS.PYTHON, TAGS.DJANGO, TAGS.POSTGRESQL],
-        image: "/projects/taskmanager.png",
+        description: "Aplicación web empresarial para digitalización y gestión de boletas desarrollada para la UGEL ANDAHUAYLAS. Incluye funcionalidades de digitalización de documentos, búsqueda avanzada, reportes detallados y gestión de usuarios.",
+        link: "#local-deployment",
+        github: null,
+        isPrivate: false,
+        isLocalOnly: true,
+        tags: [TAGS.SPRINGBOOT, TAGS.MYSQL, TAGS.REACT, TAGS.JAVASCRIPT],
+        image: AppWebUgel,
     },
 ]
 ---
@@ -162,7 +165,7 @@ const PROJECTS = [
     <!-- Grid responsive de proyectos -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-2 sm:px-0">
         {
-            PROJECTS.map(({image, title, description, tags, link, github}, index) => (
+            PROJECTS.map(({image, title, description, tags, link, github, isPrivate, isLocalOnly}, index) => (
                 <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 group mx-2 sm:mx-0 flex flex-col h-full">
                     <!-- Imagen del proyecto -->
                     <div class="relative h-48 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 overflow-hidden flex-shrink-0">
@@ -179,7 +182,7 @@ const PROJECTS = [
                         )}
                         <!-- Overlay con enlaces -->
                         <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
-                            {link && (
+                            {link && !isLocalOnly && (
                                 <a 
                                     href={link} 
                                     target="_blank" 
@@ -189,6 +192,16 @@ const PROJECTS = [
                                     <Icon name="tabler:external-link" class="w-4 h-4" />
                                     Demo
                                 </a>
+                            )}
+                            {isLocalOnly && (
+                                <button 
+                                    class="bg-gray-500/60 backdrop-blur-sm border border-gray-400/50 text-gray-300 px-3 py-2 rounded-lg cursor-not-allowed flex items-center gap-2 text-sm"
+                                    disabled
+                                    title="Demo no disponible públicamente"
+                                >
+                                    <Icon name="tabler:lock" class="w-4 h-4" />
+                                    Demo
+                                </button>
                             )}
                             {github && (
                                 <a 
@@ -253,7 +266,7 @@ const PROJECTS = [
 
                         <!-- Enlaces -->
                         <div class="flex gap-3 mt-auto">
-                            {link && (
+                            {link && !isLocalOnly && (
                                 <a 
                                     href={link} 
                                     target="_blank" 
@@ -262,6 +275,16 @@ const PROJECTS = [
                                 >
                                     Ver Proyecto
                                 </a>
+                            )}
+                            {isLocalOnly && (
+                                <button 
+                                    class="flex-1 bg-gray-500 text-white text-center py-2.5 px-4 rounded-lg text-sm font-medium cursor-not-allowed flex items-center justify-center gap-2"
+                                    title="Proyecto desplegado únicamente en servidor local"
+                                    disabled
+                                >
+                                    <Icon name="tabler:server" class="w-4 h-4" />
+                                    Servidor Local
+                                </button>
                             )}
                             {github && (
                                 <a 
