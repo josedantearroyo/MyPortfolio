@@ -3,37 +3,53 @@ import { Icon } from "astro-icon/components"
 
 const SKILLS = [
     // Frontend
-    { name: "Next.js", icon: "tabler:brand-nextjs", color: "bg-black text-white" },
-    { name: "Tailwind CSS", icon: "tabler:brand-tailwind", color: "bg-teal-500 text-white" },
-    { name: "React", icon: "tabler:brand-react", color: "bg-blue-500 text-white" },
-    { name: "Astro", icon: "tabler:rocket", color: "bg-purple-600 text-white" },
-    { name: "HTML5", icon: "tabler:brand-html5", color: "bg-orange-500 text-white" },
-    { name: "CSS3", icon: "tabler:brand-css3", color: "bg-blue-600 text-white" },
+    { name: "React", icon: "simple-icons:react", color: "bg-blue-500 text-white" },
+    { name: "Next.js", icon: "simple-icons:nextdotjs", color: "bg-black text-white" },
+    { name: "Astro", icon: "simple-icons:astro", color: "bg-purple-600 text-white" },
+    { name: "Vue.js", icon: "simple-icons:vuedotjs", color: "bg-green-500 text-white" },
+    { name: "Tailwind CSS", icon: "simple-icons:tailwindcss", color: "bg-teal-500 text-white" },
+    { name: "Bootstrap", icon: "simple-icons:bootstrap", color: "bg-purple-600 text-white" },
+    { name: "HTML5", icon: "simple-icons:html5", color: "bg-orange-500 text-white" },
+    { name: "CSS3", icon: "simple-icons:css3", color: "bg-blue-600 text-white" },
     
-    // Backend
-    { name: "Node.js", icon: "tabler:brand-nodejs", color: "bg-green-600 text-white" },
-    { name: "Python", icon: "tabler:brand-python", color: "bg-blue-500 text-white" },
-    { name: "Django", icon: "tabler:brand-django", color: "bg-green-700 text-white" },
-    { name: "Flask", icon: "tabler:flask", color: "bg-gray-700 text-white" },
-    { name: "Laravel", icon: "tabler:brand-laravel", color: "bg-red-600 text-white" },
+    // Backend & Languages
+    { name: "Java", icon: "simple-icons:openjdk", color: "bg-red-600 text-white" },
+    { name: "Spring Boot", icon: "simple-icons:springboot", color: "bg-green-600 text-white" },
+    { name: "Spring", icon: "simple-icons:spring", color: "bg-green-500 text-white" },
+    { name: "Node.js", icon: "simple-icons:nodedotjs", color: "bg-green-600 text-white" },
+    { name: "Express.js", icon: "simple-icons:express", color: "bg-gray-700 text-white" },
+    { name: "Python", icon: "simple-icons:python", color: "bg-blue-500 text-white" },
+    { name: "Django", icon: "simple-icons:django", color: "bg-green-700 text-white" },
+    { name: "Flask", icon: "simple-icons:flask", color: "bg-gray-700 text-white" },
+    { name: "PHP", icon: "simple-icons:php", color: "bg-purple-700 text-white" },
+    { name: "Laravel", icon: "simple-icons:laravel", color: "bg-red-600 text-white" },
+    { name: "C#", icon: "simple-icons:csharp", color: "bg-purple-600 text-white" },
+    { name: ".NET", icon: "simple-icons:dotnet", color: "bg-blue-600 text-white" },
     
     // Bases de datos
-    { name: "PostgreSQL", icon: "tabler:database", color: "bg-blue-600 text-white" },
-    { name: "MySQL", icon: "tabler:database", color: "bg-orange-500 text-white" },
-    { name: "MongoDB", icon: "tabler:leaf", color: "bg-green-600 text-white" },
-    { name: "Redis", icon: "tabler:database", color: "bg-red-500 text-white" },
-    { name: "Firebase", icon: "tabler:flame", color: "bg-yellow-500 text-white" },
+    { name: "PostgreSQL", icon: "simple-icons:postgresql", color: "bg-blue-600 text-white" },
+    { name: "MySQL", icon: "simple-icons:mysql", color: "bg-orange-500 text-white" },
+    { name: "MongoDB", icon: "simple-icons:mongodb", color: "bg-green-600 text-white" },
+    { name: "Redis", icon: "simple-icons:redis", color: "bg-red-500 text-white" },
+    { name: "Firebase", icon: "simple-icons:firebase", color: "bg-yellow-500 text-white" },
+    { name: "SQLite", icon: "simple-icons:sqlite", color: "bg-blue-400 text-white" },
     
-    // Herramientas
-    { name: "Git", icon: "tabler:brand-git", color: "bg-orange-600 text-white" },
-    { name: "GitHub", icon: "tabler:brand-github", color: "bg-gray-800 text-white" },
-    { name: "Docker", icon: "tabler:brand-docker", color: "bg-blue-500 text-white" },
-    { name: "AWS", icon: "tabler:cloud", color: "bg-yellow-600 text-white" },
+    // Cloud & DevOps
+    { name: "AWS", icon: "simple-icons:amazonwebservices", color: "bg-yellow-600 text-white" },
+    { name: "Google Cloud", icon: "simple-icons:googlecloud", color: "bg-blue-500 text-white" },
+    { name: "Azure", icon: "simple-icons:microsoftazure", color: "bg-blue-600 text-white" },
+    { name: "Docker", icon: "simple-icons:docker", color: "bg-blue-500 text-white" },
+    { name: "Kubernetes", icon: "simple-icons:kubernetes", color: "bg-blue-600 text-white" },
     
-    // Otros
-    { name: "TypeScript", icon: "tabler:brand-typescript", color: "bg-blue-600 text-white" },
-    { name: "JavaScript", icon: "tabler:brand-javascript", color: "bg-yellow-400 text-black" },
-    { name: "Bootstrap", icon: "tabler:brand-bootstrap", color: "bg-purple-600 text-white" },
+    // Herramientas & Otros
+    { name: "Git", icon: "simple-icons:git", color: "bg-orange-600 text-white" },
+    { name: "GitHub", icon: "simple-icons:github", color: "bg-gray-800 text-white" },
+    { name: "GitLab", icon: "simple-icons:gitlab", color: "bg-orange-500 text-white" },
+    { name: "TypeScript", icon: "simple-icons:typescript", color: "bg-blue-600 text-white" },
+    { name: "JavaScript", icon: "simple-icons:javascript", color: "bg-yellow-400 text-black" },
+    { name: "Linux", icon: "simple-icons:linux", color: "bg-black text-white" },
+    { name: "Nginx", icon: "simple-icons:nginx", color: "bg-green-500 text-white" },
+    { name: "Apache", icon: "simple-icons:apache", color: "bg-red-600 text-white" },
 ]
 ---
 
