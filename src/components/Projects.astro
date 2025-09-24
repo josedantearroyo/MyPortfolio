@@ -213,26 +213,36 @@ const PROJECTS = [
                         
                         <!-- Contenedor de descripción con altura fija -->
                         <div class="flex-grow mb-4">
-                            <div class={`description-container relative project-${index}`}>
-                                <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed description-text" data-full-text={description}>
-                                    {description.length > 120 ? description.substring(0, 120) + "..." : description}
-                                </p>
-                                {description.length > 120 && (
-                                    <div class="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none fade-gradient"></div>
-                                )}
-                                {description.length > 120 && (
-                                    <button 
-                                        class="read-more-btn text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xs font-medium mt-2 transition-colors duration-200"
-                                        data-index={index}
-                                    >
-                                        Ver más
-                                    </button>
-                                )}
+                            <div class={`description-container relative overflow-hidden project-${index}`}>
+                                <!-- Descripción completa en móvil, con "Ver más" en desktop -->
+                                <div class="md:hidden">
+                                    <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                                        {description}
+                                    </p>
+                                </div>
+                                
+                                <!-- Descripción con "Ver más" solo en desktop -->
+                                <div class="hidden md:block">
+                                    <div class="description-wrapper transition-all duration-300 ease-in-out">
+                                        <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed description-text" data-full-text={description} data-short-text={description.length > 120 ? description.substring(0, 120) + "..." : description}>
+                                            {description.length > 120 ? description.substring(0, 120) + "..." : description}
+                                        </p>
+                                    </div>
+                                    {description.length > 120 && (
+                                        <button 
+                                            class="read-more-btn text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-xs font-medium mt-1 transition-all duration-200 bg-transparent border-none hover:shadow-lg hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20 px-2 py-1 rounded-md"
+                                            data-index={index}
+                                        >
+                                            <span class="button-text">Ver más</span>
+                                            <Icon name="tabler:chevron-down" class="w-3 h-3 ml-1 transition-transform duration-200 chevron-icon" />
+                                        </button>
+                                    )}
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Tags -->
-                        <div class={`tags-container flex flex-wrap gap-1.5 mb-4 transition-all duration-300 tags-${index}`}>
+                        <!-- Tags (visible en todas las pantallas) -->
+                        <div class="flex flex-wrap gap-1.5 mb-4">
                             {tags.map((tag) => (
                                 <span class={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${tag.class} transition-all duration-200 hover:scale-105`}>
                                     <Icon name={tag.icon} class="w-3 h-3" />
@@ -274,63 +284,54 @@ const PROJECTS = [
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Funcionalidad de "Ver más"
+        // Funcionalidad optimizada de "Ver más"
         document.querySelectorAll('.read-more-btn').forEach(button => {
             button.addEventListener('click', function(event) {
-                const target = event.target;
-                if (!(target instanceof HTMLButtonElement)) return;
+                event.preventDefault();
+                const target = event.currentTarget as HTMLButtonElement;
                 
-                const index = target.getAttribute('data-index');
-                const container = target.closest('.description-container');
+                const container = target.closest('.description-container') as HTMLElement;
                 if (!container) return;
                 
-                const text = container.querySelector('.description-text');
-                if (!text) return;
+                const wrapper = container.querySelector('.description-wrapper') as HTMLElement;
+                const text = container.querySelector('.description-text') as HTMLElement;
+                const buttonText = target.querySelector('.button-text') as HTMLElement;
+                const chevron = target.querySelector('.chevron-icon') as HTMLElement;
+                
+                if (!wrapper || !text || !buttonText || !chevron) return;
                 
                 const fullText = text.getAttribute('data-full-text');
-                if (!fullText) return;
+                const shortText = text.getAttribute('data-short-text');
                 
-                const fadeGradient = container.querySelector('.fade-gradient');
-                const tagsContainer = document.querySelector(`.tags-${index}`);
+                if (!fullText || !shortText) return;
                 
-                if (target.textContent === 'Ver más') {
+                const isExpanded = buttonText.textContent === 'Ver menos';
+                
+                if (!isExpanded) {
                     // Expandir
                     text.textContent = fullText;
-                    target.textContent = 'Ver menos';
-                    if (fadeGradient) fadeGradient.remove();
-                    
-                    // Ocultar tags con animación
-                    if (tagsContainer && tagsContainer instanceof HTMLElement) {
-                        tagsContainer.style.maxHeight = tagsContainer.scrollHeight + 'px';
-                        setTimeout(() => {
-                            if (tagsContainer instanceof HTMLElement) {
-                                tagsContainer.style.maxHeight = '0';
-                                tagsContainer.style.opacity = '0';
-                                tagsContainer.style.marginBottom = '0';
-                            }
-                        }, 50);
-                    }
+                    buttonText.textContent = 'Ver menos';
+                    chevron.style.transform = 'rotate(180deg)';
+                    wrapper.style.maxHeight = 'none';
                 } else {
                     // Contraer
-                    const truncatedText = fullText.length > 120 ? fullText.substring(0, 120) + "..." : fullText;
-                    text.textContent = truncatedText;
-                    target.textContent = 'Ver más';
-                    
-                    // Mostrar tags con animación
-                    if (tagsContainer && tagsContainer instanceof HTMLElement) {
-                        tagsContainer.style.maxHeight = 'none';
-                        tagsContainer.style.opacity = '1';
-                        tagsContainer.style.marginBottom = '1rem';
-                    }
-                    
-                    // Recrear degradado
-                    if (fullText.length > 120) {
-                        const newGradient = document.createElement('div');
-                        newGradient.className = 'absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white dark:from-gray-800 to-transparent pointer-events-none fade-gradient';
-                        container.appendChild(newGradient);
-                    }
+                    text.textContent = shortText;
+                    buttonText.textContent = 'Ver más';
+                    chevron.style.transform = 'rotate(0deg)';
+                    wrapper.style.maxHeight = '4.5rem'; // Aproximadamente 3 líneas
                 }
             });
+        });
+
+        // Establecer altura inicial para textos largos (solo en desktop)
+        document.querySelectorAll('.description-wrapper').forEach((wrapper, index) => {
+            const text = wrapper.querySelector('.description-text') as HTMLElement;
+            if (!text) return;
+            
+            const fullText = text.getAttribute('data-full-text');
+            if (fullText && fullText.length > 120) {
+                (wrapper as HTMLElement).style.maxHeight = '4.5rem';
+            }
         });
     });
 </script>
@@ -338,41 +339,59 @@ const PROJECTS = [
 <style>
     /* Estilos para la consistencia de las tarjetas */
     article {
-        min-height: 400px;
+        min-height: 450px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
     }
 
     article:hover {
         transform: translateY(-2px);
     }
 
-    /* Contenedor de descripción con altura controlada */
+    /* Contenedor de descripción optimizado */
     .description-container {
         position: relative;
-        min-height: 60px;
+        flex-grow: 1;
     }
 
-    /* Animaciones para las tags */
-    .tags-container {
+    .description-wrapper {
         overflow: hidden;
-        transition: max-height 0.3s ease, opacity 0.3s ease, margin-bottom 0.3s ease;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        line-height: 1.5;
     }
 
-    /* Degradado suave para texto truncado */
-    .fade-gradient {
-        transition: opacity 0.3s ease;
-    }
-
-    /* Botón de leer más */
+    /* Botón de leer más con resplandor */
     .read-more-btn {
+        display: inline-flex;
+        align-items: center;
         position: relative;
         z-index: 10;
-        background: white;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: transparent;
     }
 
-    /* Estilos para modo oscuro */
-    .dark .read-more-btn {
-        background: rgb(31 41 55);
+    .read-more-btn:hover {
+        transform: translateY(-1px);
+        text-shadow: 0 0 8px rgba(59, 130, 246, 0.5);
+        filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.3));
+    }
+
+    .dark .read-more-btn:hover {
+        text-shadow: 0 0 8px rgba(96, 165, 250, 0.5);
+        filter: drop-shadow(0 0 6px rgba(96, 165, 250, 0.3));
+    }
+
+    .chevron-icon {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Asegurar que todos los elementos del contenido tengan la misma estructura */
+    .p-5 {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        min-height: 0; /* Permite que flex funcione correctamente */
     }
 
     /* Responsividad mejorada */
@@ -385,17 +404,19 @@ const PROJECTS = [
         
         article {
             margin: 0 0.25rem;
-            min-height: 380px;
+            min-height: auto;
         }
 
-        .description-container {
-            min-height: 50px;
-        }
+
     }
 
     @media (min-width: 769px) and (max-width: 1024px) {
         .grid {
             grid-template-columns: repeat(2, 1fr);
+        }
+        
+        article {
+            min-height: 440px;
         }
     }
 
@@ -412,5 +433,21 @@ const PROJECTS = [
 
     article:hover {
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Evitar que las tarjetas se deformen */
+    .flex-grow {
+        min-height: 0;
+    }
+
+    /* Asegurar que los tags no interfieran con el diseño */
+    .flex.flex-wrap.gap-1\.5.mb-4 {
+        flex-shrink: 0;
+    }
+
+    /* Asegurar que los botones estén en la parte inferior */
+    .flex.gap-3.mt-auto {
+        flex-shrink: 0;
+        margin-top: auto;
     }
 </style>
