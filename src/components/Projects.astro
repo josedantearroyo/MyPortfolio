@@ -3,6 +3,8 @@ import { Icon } from "astro-icon/components"
 import portfolioImage from "../assets/images/portafolio.png"
 import AppWebUgel from "../assets/images/sistema_ugel2024.png"
 import PetFriendSolution from "../assets/images/PetFriendSolution.png"
+import ELearningEduPro from "../assets/images/ELearningEduPro.png"
+import SoftwareDesarrollo from "../assets/images/desarrollo.jpg"
 
 const TAGS = {
     NEXT:{
@@ -116,12 +118,12 @@ const PROJECTS = [
         image: "/projects/api-springboot.png",
     },
     {
-        title: "E-commerce Platform",
-        description: "Plataforma de comercio electrónico moderna con carrito de compras, pagos integrados y panel de administración desarrollada con React y Node.js.",
-        link: "https://example-ecommerce.com",
+        title: "E-Learning EduPro cursos online",
+        description: "Plataforma de educación en línea con cursos interactivos, gestión de usuarios y panel de administración, desarrollada con Astro, tailwind CSS y JavaScript.",
+        link: "https://wonderful-sopapillas-17aa80.netlify.app/",
         github: "https://github.com/username/ecommerce",
-        tags: [TAGS.REACT, TAGS.NODEJS, TAGS.MONGODB],
-        image: "/projects/ecommerce.png",
+        tags: [TAGS.ASTRO, TAGS.TAILWIND, TAGS.JAVASCRIPT,TAGS.REACT],
+        image: ELearningEduPro,
     },
     {
         title: "Tienda para mascotas PetFriendSolution",
@@ -181,8 +183,9 @@ const PROJECTS = [
                                 <Icon name="tabler:photo" class="w-12 h-12 text-gray-400 dark:text-gray-500" />
                             </div>
                         )}
-                        <!-- Overlay con enlaces -->
-                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                        
+                        <!-- Overlay para desktop (solo hover) -->
+                        <div class="hidden md:flex absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 items-center justify-center gap-3">
                             {link && !isLocalOnly && (
                                 <a 
                                     href={link} 
@@ -213,6 +216,41 @@ const PROJECTS = [
                                 >
                                     <Icon name="tabler:brand-github" class="w-4 h-4" />
                                     Código
+                                </a>
+                            )}
+                        </div>
+
+                        <!-- Botones para móvil (siempre visibles) -->
+                        <div class="md:hidden absolute top-3 right-3 flex gap-2">
+                            {link && !isLocalOnly && (
+                                <a 
+                                    href={link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    class="bg-black/70 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/80 transition-all duration-200"
+                                    title="Ver Demo"
+                                >
+                                    <Icon name="tabler:external-link" class="w-4 h-4" />
+                                </a>
+                            )}
+                            {isLocalOnly && (
+                                <button 
+                                    class="bg-gray-600/70 backdrop-blur-sm text-gray-300 p-2 rounded-full cursor-not-allowed"
+                                    disabled
+                                    title="Demo no disponible públicamente"
+                                >
+                                    <Icon name="tabler:lock" class="w-4 h-4" />
+                                </button>
+                            )}
+                            {github && (
+                                <a 
+                                    href={github} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    class="bg-black/70 backdrop-blur-sm text-white p-2 rounded-full hover:bg-black/80 transition-all duration-200"
+                                    title="Ver Código"
+                                >
+                                    <Icon name="tabler:brand-github" class="w-4 h-4" />
                                 </a>
                             )}
                         </div>
