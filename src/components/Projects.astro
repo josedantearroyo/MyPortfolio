@@ -1,10 +1,5 @@
 ---
 import { Icon } from "astro-icon/components"
-import portfolioImage from "../assets/images/portafolio.png"
-import AppWebUgel from "../assets/images/sistema_ugel2024.png"
-import PetFriendSolution from "../assets/images/PetFriendSolution.png"
-import ELearningEduPro from "../assets/images/ELearningEduPro.png"
-import SoftwareDesarrollo from "../assets/images/desarrollo.jpg"
 
 const TAGS = {
     NEXT:{
@@ -110,7 +105,7 @@ const PROJECTS = [
         isLocalOnly: true,
         isInDevelopment: true,
         tags: [TAGS.NEXT, TAGS.TAILWIND, TAGS.REACT],
-        image: SoftwareDesarrollo,
+        image: "/images/desarrollo.jpg",
     },
     {
         title: "API REST Spring Boot",
@@ -121,7 +116,7 @@ const PROJECTS = [
         isLocalOnly: true,
         isInDevelopment: true,
         tags: [TAGS.SPRINGBOOT, TAGS.JAVA, TAGS.POSTGRESQL],
-        image: SoftwareDesarrollo,
+        image: "/images/desarrollo.jpg",
     },
     {
         title: "E-Learning EduPro cursos online",
@@ -129,7 +124,7 @@ const PROJECTS = [
         link: "https://wonderful-sopapillas-17aa80.netlify.app/",
         github: "https://github.com/username/ecommerce",
         tags: [TAGS.ASTRO, TAGS.TAILWIND, TAGS.JAVASCRIPT,TAGS.REACT],
-        image: ELearningEduPro,
+        image: "/images/edupro.png",
     },
     {
         title: "Tienda para mascotas PetFriendSolution",
@@ -137,7 +132,7 @@ const PROJECTS = [
         link: "https://sensational-crepe-e261e1.netlify.app/",
         github: "https://github.com/username/sistema-gestion",
         tags: [TAGS.ASTRO, TAGS.TYPESCRIPT, TAGS.TAILWIND, TAGS.JAVASCRIPT],
-        image: PetFriendSolution,
+        image: "/images/petfriend.png",
     },
     {
         title: "Portafolio Web",
@@ -145,7 +140,7 @@ const PROJECTS = [
         link: "",
         github: "https://github.com/josedantearroyo/MyPortfolio",
         tags: [TAGS.ASTRO, TAGS.TAILWIND, TAGS.TYPESCRIPT],
-        image: portfolioImage,
+        image: "/images/portafolio.png",
     },
     {
         title: "App Web Gestión de Boletas",
@@ -155,7 +150,7 @@ const PROJECTS = [
         isPrivate: false,
         isLocalOnly: true,
         tags: [TAGS.SPRINGBOOT, TAGS.MYSQL, TAGS.REACT, TAGS.JAVASCRIPT],
-        image: AppWebUgel,
+        image: "/images/sistemaugel.png",
     },
 ]
 ---
@@ -180,7 +175,7 @@ const PROJECTS = [
                     <div class="relative h-48 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 overflow-hidden flex-shrink-0">
                         {image ? (
                             <img 
-                                src={typeof image === 'string' ? image : image.src} 
+                                src={image} 
                                 alt={title}
                                 class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                             />
