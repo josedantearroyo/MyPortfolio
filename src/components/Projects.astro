@@ -104,18 +104,24 @@ const PROJECTS = [
     {
         title: "Kimsa Inventory",
         description: "Software de inventario y facturación para pequeñas y medianas empresas. Sistema completo con gestión de productos, clientes, proveedores y reportes.",
-        link: "https://kimsainventory.com",
-        github: "https://github.com/username/kimsa-inventory",
+        link: "#en-desarrollo",
+        github: null,
+        isPrivate: false,
+        isLocalOnly: true,
+        isInDevelopment: true,
         tags: [TAGS.NEXT, TAGS.TAILWIND, TAGS.REACT],
-        image: "/projects/kimsa-inventory.png",
+        image: SoftwareDesarrollo,
     },
     {
         title: "API REST Spring Boot",
         description: "API REST robusta desarrollada con Spring Boot y Java para gestión de usuarios, autenticación JWT y operaciones CRUD con base de datos PostgreSQL.",
-        link: "https://api-springboot.com",
-        github: "https://github.com/username/api-springboot",
+        link: "#en-desarrollo",
+        github: null,
+        isPrivate: false,
+        isLocalOnly: true,
+        isInDevelopment: true,
         tags: [TAGS.SPRINGBOOT, TAGS.JAVA, TAGS.POSTGRESQL],
-        image: "/projects/api-springboot.png",
+        image: SoftwareDesarrollo,
     },
     {
         title: "E-Learning EduPro cursos online",
@@ -168,7 +174,7 @@ const PROJECTS = [
     <!-- Grid responsive de proyectos -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-2 sm:px-0">
         {
-            PROJECTS.map(({image, title, description, tags, link, github, isPrivate, isLocalOnly}, index) => (
+            PROJECTS.map(({image, title, description, tags, link, github, isPrivate, isLocalOnly, isInDevelopment}, index) => (
                 <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 group mx-2 sm:mx-0 flex flex-col h-full">
                     <!-- Imagen del proyecto -->
                     <div class="relative h-48 bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 overflow-hidden flex-shrink-0">
@@ -186,7 +192,7 @@ const PROJECTS = [
                         
                         <!-- Overlay para desktop (solo hover) -->
                         <div class="hidden md:flex absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 items-center justify-center gap-3">
-                            {link && !isLocalOnly && (
+                            {link && !isLocalOnly && !isInDevelopment && (
                                 <a 
                                     href={link} 
                                     target="_blank" 
@@ -197,17 +203,17 @@ const PROJECTS = [
                                     Demo
                                 </a>
                             )}
-                            {isLocalOnly && (
+                            {(isLocalOnly || isInDevelopment) && (
                                 <button 
-                                    class="bg-gray-500/60 backdrop-blur-sm border border-gray-400/50 text-gray-300 px-3 py-2 rounded-lg cursor-not-allowed flex items-center gap-2 text-sm"
+                                    class="bg-orange-500/60 backdrop-blur-sm border border-orange-400/50 text-orange-100 px-3 py-2 rounded-lg cursor-not-allowed flex items-center gap-2 text-sm"
                                     disabled
-                                    title="Demo no disponible públicamente"
+                                    title={isInDevelopment ? "Proyecto en desarrollo" : "Demo no disponible públicamente"}
                                 >
-                                    <Icon name="tabler:lock" class="w-4 h-4" />
-                                    Demo
+                                    <Icon name={isInDevelopment ? "tabler:tools" : "tabler:lock"} class="w-4 h-4" />
+                                    {isInDevelopment ? "En Desarrollo" : "Demo"}
                                 </button>
                             )}
-                            {github && (
+                            {github && !isInDevelopment && (
                                 <a 
                                     href={github} 
                                     target="_blank" 
@@ -218,11 +224,21 @@ const PROJECTS = [
                                     Código
                                 </a>
                             )}
+                            {isInDevelopment && (
+                                <button 
+                                    class="bg-orange-500/60 backdrop-blur-sm border border-orange-400/50 text-orange-100 px-3 py-2 rounded-lg cursor-not-allowed flex items-center gap-2 text-sm"
+                                    disabled
+                                    title="Código no disponible - proyecto en desarrollo"
+                                >
+                                    <Icon name="tabler:code-off" class="w-4 h-4" />
+                                    Código
+                                </button>
+                            )}
                         </div>
 
                         <!-- Botones para móvil (siempre visibles) -->
                         <div class="md:hidden absolute top-3 right-3 flex gap-2">
-                            {link && !isLocalOnly && (
+                            {link && !isLocalOnly && !isInDevelopment && (
                                 <a 
                                     href={link} 
                                     target="_blank" 
@@ -233,16 +249,16 @@ const PROJECTS = [
                                     <Icon name="tabler:external-link" class="w-4 h-4" />
                                 </a>
                             )}
-                            {isLocalOnly && (
+                            {(isLocalOnly || isInDevelopment) && (
                                 <button 
-                                    class="bg-gray-600/70 backdrop-blur-sm text-gray-300 p-2 rounded-full cursor-not-allowed"
+                                    class="bg-orange-600/70 backdrop-blur-sm text-orange-100 p-2 rounded-full cursor-not-allowed"
                                     disabled
-                                    title="Demo no disponible públicamente"
+                                    title={isInDevelopment ? "Proyecto en desarrollo" : "Demo no disponible públicamente"}
                                 >
-                                    <Icon name="tabler:lock" class="w-4 h-4" />
+                                    <Icon name={isInDevelopment ? "tabler:tools" : "tabler:lock"} class="w-4 h-4" />
                                 </button>
                             )}
-                            {github && (
+                            {github && !isInDevelopment && (
                                 <a 
                                     href={github} 
                                     target="_blank" 
@@ -252,6 +268,15 @@ const PROJECTS = [
                                 >
                                     <Icon name="tabler:brand-github" class="w-4 h-4" />
                                 </a>
+                            )}
+                            {isInDevelopment && (
+                                <button 
+                                    class="bg-orange-600/70 backdrop-blur-sm text-orange-100 p-2 rounded-full cursor-not-allowed"
+                                    disabled
+                                    title="Código no disponible - proyecto en desarrollo"
+                                >
+                                    <Icon name="tabler:code-off" class="w-4 h-4" />
+                                </button>
                             )}
                         </div>
                     </div>
@@ -305,7 +330,7 @@ const PROJECTS = [
 
                         <!-- Enlaces -->
                         <div class="flex gap-3 mt-auto">
-                            {link && !isLocalOnly && (
+                            {link && !isLocalOnly && !isInDevelopment && (
                                 <a 
                                     href={link} 
                                     target="_blank" 
@@ -315,7 +340,7 @@ const PROJECTS = [
                                     Ver Proyecto
                                 </a>
                             )}
-                            {isLocalOnly && (
+                            {isLocalOnly && !isInDevelopment && (
                                 <button 
                                     class="flex-1 bg-gray-500 text-white text-center py-2.5 px-4 rounded-lg text-sm font-medium cursor-not-allowed flex items-center justify-center gap-2"
                                     title="Proyecto desplegado únicamente en servidor local"
@@ -325,7 +350,17 @@ const PROJECTS = [
                                     Servidor Local
                                 </button>
                             )}
-                            {github && (
+                            {isInDevelopment && (
+                                <button 
+                                    class="flex-1 bg-orange-500 text-white text-center py-2.5 px-4 rounded-lg text-sm font-medium cursor-not-allowed flex items-center justify-center gap-2"
+                                    title="Proyecto en desarrollo - próximamente disponible"
+                                    disabled
+                                >
+                                    <Icon name="tabler:tools" class="w-4 h-4" />
+                                    En Desarrollo
+                                </button>
+                            )}
+                            {github && !isInDevelopment && (
                                 <a 
                                     href={github} 
                                     target="_blank" 
