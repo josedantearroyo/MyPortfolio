@@ -132,12 +132,3 @@ npm run build
 # Sube el contenido de ./dist/
 ```
 
-## 📱 Screenshots
-
-<div align="center">
-
-| Desktop | Mobile | Dark Mode |
-|---------|--------|-----------|
-| ![Desktop](screenshots/desktop.png) | ![Mobile](screenshots/mobile.png) | ![Dark](screenshots/dark.png) |
-
-</div>
