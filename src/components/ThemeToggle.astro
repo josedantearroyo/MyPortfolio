@@ -1,5 +1,5 @@
 ---
-const THEMES = ["light", "dark", "System"];
+const THEMES = ["Light", "Dark", "System"];
 import { Icon } from "astro-icon/components";
 ---
 
@@ -118,20 +118,24 @@ import { Icon } from "astro-icon/components";
       const currentStoredTheme = getStoredTheme() || 'system';
       const themeToApply = getThemeToApply();
       
-      console.log('Tema almacenado:', currentStoredTheme, '- Tema a aplicar:', themeToApply);
+      console.log('🎨 Tema almacenado:', currentStoredTheme, '- Tema a aplicar:', themeToApply);
       
       // Aplicar el tema al documento
+      const htmlElement = document.documentElement;
       if (themeToApply === 'dark') {
-        document.documentElement.classList.add('dark');
+        htmlElement.classList.add('dark');
+        console.log('🌙 Modo oscuro aplicado');
       } else {
-        document.documentElement.classList.remove('dark');
+        htmlElement.classList.remove('dark');
+        console.log('☀️ Modo claro aplicado');
       }
       
-      // Actualizar iconos
+      // Actualizar iconos - mostrar el icono correspondiente al tema almacenado
       document.querySelectorAll('.theme-toggle-icon').forEach(icon => {
         if (icon.id === currentStoredTheme) {
           icon.style.scale = '1';
           icon.style.opacity = '1';
+          console.log('🎭 Icono visible:', icon.id);
         } else {
           icon.style.scale = '0';
           icon.style.opacity = '0';
@@ -178,7 +182,7 @@ import { Icon } from "astro-icon/components";
         option.addEventListener('click', (e) => {
           e.stopPropagation();
           const selectedTheme = e.currentTarget.textContent.toLowerCase().trim();
-          console.log('Tema seleccionado:', selectedTheme);
+          console.log('🎯 Tema seleccionado:', selectedTheme);
           setTheme(selectedTheme);
           themesMenu.classList.remove('open');
         });
