@@ -18,14 +18,36 @@ import Footer from "../components/Footer.astro"
     <meta name="generator" content={Astro.generator} />
     <title>Portafolio Web</title>
     
-    <!-- Script simple para evitar FOUC -->
+    <!-- Script automático de tema según sistema -->
     <script is:inline>
-        // Solo aplicar el tema inicial sin interferir con el selector
       (function() {
-        const stored = localStorage.getItem('theme');
-        if (stored === 'dark' || (stored === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark');
+        // Función para aplicar el tema del sistema
+        function applySystemTheme() {
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          if (prefersDark) {
+            document.documentElement.classList.add('dark');
+            console.log('🌙 Tema automático: modo oscuro aplicado');
+          } else {
+            document.documentElement.classList.remove('dark');
+            console.log('☀️ Tema automático: modo claro aplicado');
+          }
         }
+
+        // Limpiar cualquier configuración manual anterior
+        localStorage.removeItem('theme');
+        
+        // Aplicar tema inicial
+        applySystemTheme();
+
+        // Escuchar cambios en las preferencias del sistema
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+          console.log('🔄 Cambio detectado en preferencias del sistema:', e.matches ? 'oscuro' : 'claro');
+          applySystemTheme();
+        });
+
+        // Para navegación SPA de Astro
+        document.addEventListener('astro:after-swap', applySystemTheme);
       })();
     </script>
   </head>
