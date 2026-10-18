@@ -93,19 +93,22 @@ const TAGS = {
         class: "bg-blue-600 text-white",
         icon: "simple-icons:typescript",
     },
+    SUPABASE:{
+        name:"Supabase",
+        class: "bg-blue-500 text-white",
+        icon: "simple-icons:supabase",
+    },
 }
 
 const PROJECTS = [
     {
-        title: "Kimsa Inventory",
-        description: "Software de inventario y facturación para pequeñas y medianas empresas. Sistema completo con gestión de productos, clientes, proveedores y reportes.",
-        link: "#en-desarrollo",
+        title: "KimsaInvent",
+        description: "Sistema web de gestión logística y control de inventario especializado en materiales eléctricos (tramos de cables, ferreterías y empalmes), diseñado para optimizar operaciones.",
         github: null,
+        link: "https://invent-kimsa.vercel.app/",
         isPrivate: false,
-        isLocalOnly: true,
-        isInDevelopment: true,
-        tags: [TAGS.NEXT, TAGS.TAILWIND, TAGS.REACT],
-        image: "/images/desarrollo.jpg",
+        tags: [TAGS.REACT, TAGS.TAILWIND, TAGS.SUPABASE,TAGS.POSTGRESQL],
+        image: "/images/kimsainvent.png",
     },
     {
         title: "API REST Spring Boot",
