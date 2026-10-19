@@ -169,8 +169,9 @@ const PROJECTS = [
         </p>
     </div>
 
+    <!-- Móvil y tablet: tarjetas originales -->
     <!-- Grid responsive de proyectos -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-2 sm:px-0">
+    <div class="projects-grid grid grid-cols-1 md:grid-cols-2 gap-6 px-2 sm:px-0 lg:hidden">
         {
             PROJECTS.map(({image, title, description, tags, link, github, isPrivate, isLocalOnly, isInDevelopment}, index) => (
                 <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300 group mx-2 sm:mx-0 flex flex-col h-full">
@@ -376,6 +377,132 @@ const PROJECTS = [
             ))
         }
     </div>
+
+    <!-- Carrusel (solo escritorio) -->
+    <div id="projects-carousel" class="hidden lg:block relative lg:left-1/2 lg:-translate-x-1/2 lg:w-[min(72rem,calc(100vw-3rem))] px-6">
+        <!-- Pista del carrusel (scroll horizontal) -->
+        <div
+            id="projects-track"
+            class="projects-track flex gap-4 overflow-x-auto snap-x snap-mandatory py-10 -my-10"
+        >
+            {
+                PROJECTS.map(({ image, title, tags }, index) => (
+                    <div
+                        class="project-card snap-start shrink-0 w-[calc(33.333%-0.667rem)] aspect-[16/10] relative rounded-xl overflow-hidden cursor-pointer bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600 shadow-md"
+                        data-index={index}
+                        tabindex="0"
+                        role="button"
+                        aria-label={`Ver detalles de ${title}`}
+                    >
+                        {image ? (
+                            <img src={image} alt={title} loading="lazy" draggable="false" class="w-full h-full object-cover" />
+                        ) : (
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <Icon name="tabler:photo" class="w-12 h-12 text-gray-400 dark:text-gray-500" />
+                            </div>
+                        )}
+                        <div class="absolute inset-x-0 top-0 p-3 pb-10 bg-gradient-to-b from-black/85 via-black/40 to-transparent">
+                            <p class="text-white font-semibold text-sm leading-tight line-clamp-2">{title}</p>
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center p-4 pointer-events-none">
+                            <div class="flex flex-wrap items-center justify-center gap-2">
+                                {tags.map((tag) => (
+                                    <span title={tag.name} aria-label={tag.name} class={`inline-flex items-center justify-center w-9 h-9 rounded-full shadow-lg ring-2 ring-white/30 ${tag.class}`}>
+                                        <Icon name={tag.icon} class="w-5 h-5" />
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- Flechas -->
+        <button
+            id="projects-prev"
+            type="button"
+            aria-label="Anterior"
+            class="carousel-arrow absolute left-1 top-1/2 -translate-y-1/2 z-50 hidden w-10 h-10 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-gray-100 shadow-lg border border-gray-200 dark:border-gray-600 hover:scale-110 transition"
+        >
+            <Icon name="tabler:chevron-left" class="w-5 h-5" />
+        </button>
+        <button
+            id="projects-next"
+            type="button"
+            aria-label="Siguiente"
+            class="carousel-arrow absolute right-1 top-1/2 -translate-y-1/2 z-50 hidden w-10 h-10 items-center justify-center rounded-full bg-white/90 dark:bg-gray-800/90 text-gray-800 dark:text-gray-100 shadow-lg border border-gray-200 dark:border-gray-600 hover:scale-110 transition"
+        >
+            <Icon name="tabler:chevron-right" class="w-5 h-5" />
+        </button>
+
+        <!-- Popover flotante con los detalles (el carrusel de fondo no se mueve) -->
+        <div
+            id="project-popover"
+            class="project-popover absolute z-40 max-w-full rounded-xl overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-2xl"
+            aria-hidden="true"
+        >
+        </div>
+    </div>
+
+    <!-- Contenido oculto con el detalle de cada proyecto (se clona en el popover) -->
+    {
+        PROJECTS.map(({ image, title, description, link, github, isLocalOnly, isInDevelopment }, index) => (
+            <div hidden data-popover-template={index}>
+                <div class="relative aspect-[16/9] bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-700 dark:to-gray-600">
+                    {image ? (
+                        <img src={image} alt={title} loading="lazy" draggable="false" class="w-full h-full object-cover" />
+                    ) : (
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <Icon name="tabler:photo" class="w-12 h-12 text-gray-400 dark:text-gray-500" />
+                        </div>
+                    )}
+                    <div class="absolute inset-x-0 top-0 p-3 pb-10 bg-gradient-to-b from-black/85 to-transparent">
+                        <h4 class="text-white font-bold text-base leading-tight pr-8">{title}</h4>
+                    </div>
+                    <button type="button" data-popover-close aria-label="Cerrar" class="popover-close absolute top-2 right-2 w-8 h-8 items-center justify-center rounded-full bg-black/60 text-white">
+                        <Icon name="tabler:x" class="w-4 h-4" />
+                    </button>
+                </div>
+
+                <div class="p-4">
+                    <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4 line-clamp-4">{description}</p>
+
+                    <div class="flex gap-3">
+                        {link && !isLocalOnly && !isInDevelopment && (
+                            <a href={link} target="_blank" rel="noopener noreferrer" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-center py-2 px-4 rounded-lg transition-colors text-sm font-medium">
+                                Ver Proyecto
+                            </a>
+                        )}
+                        {isLocalOnly && !isInDevelopment && (
+                            <button class="flex-1 bg-gray-500 text-white py-2 px-4 rounded-lg text-sm font-medium cursor-not-allowed flex items-center justify-center gap-2" title="Proyecto desplegado únicamente en servidor local" disabled>
+                                <Icon name="tabler:server" class="w-4 h-4" />
+                                Servidor Local
+                            </button>
+                        )}
+                        {isInDevelopment && (
+                            <button class="flex-1 bg-orange-500 text-white py-2 px-4 rounded-lg text-sm font-medium cursor-not-allowed flex items-center justify-center gap-2" title="Proyecto en desarrollo - próximamente disponible" disabled>
+                                <Icon name="tabler:tools" class="w-4 h-4" />
+                                En Desarrollo
+                            </button>
+                        )}
+                        {github && !isInDevelopment && (
+                            <a
+                                href={github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                title="Ver código en GitHub"
+                                class={`${link && !isLocalOnly ? 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 p-2' : isLocalOnly ? 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 p-2' : 'flex-1 bg-gray-800 hover:bg-gray-900 dark:bg-gray-600 dark:hover:bg-gray-500 text-white text-center py-2 px-4 flex items-center justify-center gap-2'} rounded-lg transition-colors text-sm font-medium`}
+                            >
+                                <Icon name="tabler:brand-github" class="w-5 h-5" />
+                                {!(link && !isLocalOnly) && !isLocalOnly && 'Ver Código'}
+                            </a>
+                        )}
+                    </div>
+                </div>
+            </div>
+        ))
+    }
 </div>
 
 <script>
@@ -432,16 +559,197 @@ const PROJECTS = [
     });
 </script>
 
+<script>
+    const carousel = document.getElementById('projects-carousel') as HTMLElement | null
+    const track = document.getElementById('projects-track') as HTMLElement | null
+    const popover = document.getElementById('project-popover') as HTMLElement | null
+    const prev = document.getElementById('projects-prev') as HTMLButtonElement | null
+    const next = document.getElementById('projects-next') as HTMLButtonElement | null
+
+    if (carousel && track && popover && prev && next) {
+        let activeIndex = -1
+        let hideTimer: number | undefined
+        let showTimer: number | undefined
+
+        /* ---------- Carrusel: flechas ---------- */
+        const step = () => {
+            const card = track.querySelector('.project-card') as HTMLElement | null
+            return card ? card.offsetWidth + 16 : track.clientWidth * 0.8
+        }
+        const updateArrows = () => {
+            const max = track.scrollWidth - track.clientWidth - 2
+            prev.style.display = track.scrollLeft > 2 ? 'flex' : 'none'
+            next.style.display = track.scrollLeft < max ? 'flex' : 'none'
+        }
+        prev.addEventListener('click', () => { hidePopover(true); track.scrollBy({ left: -step(), behavior: 'smooth' }) })
+        next.addEventListener('click', () => { hidePopover(true); track.scrollBy({ left: step(), behavior: 'smooth' }) })
+        track.addEventListener('scroll', () => { updateArrows(); if (activeIndex !== -1) hidePopover(true) }, { passive: true })
+        window.addEventListener('resize', () => { updateArrows(); hidePopover(true) })
+        updateArrows()
+
+        /* ---------- Popover ---------- */
+        function positionPopover(card: HTMLElement) {
+            const c = carousel!.getBoundingClientRect()
+            const r = card.getBoundingClientRect()
+
+            const pw = Math.min(c.width, Math.max(320, Math.round(r.width * 1.25)))
+            popover!.style.width = `${pw}px`
+            const ph = popover!.offsetHeight
+
+            // Centrado horizontal y vertical sobre la card
+            const cx = r.left - c.left + r.width / 2
+            const cy = r.top - c.top + r.height / 2
+            const left = Math.max(0, Math.min(cx - pw / 2, c.width - pw))
+            const top = cy - ph / 2
+
+            popover!.style.left = `${left}px`
+            popover!.style.top = `${top}px`
+            popover!.style.setProperty('--from-scale', String(Math.min(0.95, r.width / pw)))
+            popover!.style.transformOrigin = `${cx - left}px 50%`
+        }
+
+        function openPopover(card: HTMLElement) {
+            const index = Number(card.dataset.index)
+            const tpl = document.querySelector(`[data-popover-template="${index}"]`) as HTMLElement | null
+            if (!tpl) return
+            popover!.replaceChildren(...Array.from(tpl.childNodes).map((n) => n.cloneNode(true)))
+            popover!.querySelector('[data-popover-close]')?.addEventListener('click', () => hidePopover(true))
+            activeIndex = index
+            positionPopover(card)
+            // forzar reflow para que la animación parta del tamaño de la card
+            void popover!.offsetWidth
+            popover!.classList.add('is-open')
+            popover!.setAttribute('aria-hidden', 'false')
+        }
+
+        function showPopover(card: HTMLElement) {
+            const index = Number(card.dataset.index)
+            window.clearTimeout(hideTimer)
+            if (index === activeIndex) return
+            if (activeIndex !== -1) {
+                // Cambio de proyecto: el panel actual se encoge de vuelta hacia su card
+                // (conserva su origen y escala) y, al terminar, entra el nuevo desde la suya
+                popover!.classList.remove('is-open')
+                popover!.setAttribute('aria-hidden', 'true')
+                activeIndex = -1
+                window.clearTimeout(showTimer)
+                showTimer = window.setTimeout(() => openPopover(card), 320)
+                return
+            }
+            openPopover(card)
+        }
+
+        function hidePopover(immediate = false) {
+            window.clearTimeout(showTimer)
+            window.clearTimeout(hideTimer)
+            const run = () => {
+                popover!.classList.remove('is-open')
+                popover!.setAttribute('aria-hidden', 'true')
+                activeIndex = -1
+            }
+            if (immediate) run()
+            else hideTimer = window.setTimeout(run, 160)
+        }
+
+        track.querySelectorAll<HTMLElement>('.project-card').forEach((card) => {
+            card.addEventListener('mouseenter', () => {
+                window.clearTimeout(hideTimer)
+                window.clearTimeout(showTimer)
+                showTimer = window.setTimeout(() => showPopover(card), activeIndex === -1 ? 180 : 0)
+            })
+            card.addEventListener('mouseleave', () => hidePopover())
+            // Táctil y teclado
+            card.addEventListener('click', () => showPopover(card))
+            card.addEventListener('focus', () => showPopover(card))
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showPopover(card) }
+                if (e.key === 'Escape') hidePopover(true)
+            })
+        })
+
+        popover.addEventListener('mouseenter', () => window.clearTimeout(hideTimer))
+        popover.addEventListener('mouseleave', () => hidePopover())
+
+        document.addEventListener('click', (e) => {
+            const t = e.target as Node
+            if (!popover.contains(t) && !track.contains(t)) hidePopover(true)
+        })
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hidePopover(true) })
+    }
+</script>
+
 <style>
+    /* Ocultar la barra de scroll del carrusel */
+    .projects-track {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    .projects-track::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Las tarjetas de fondo NO se mueven, escalan ni cambian al hacer hover */
+    .project-card {
+        transition: none;
+    }
+
+    /* Popover: aparece suavemente sobre la tarjeta */
+    .project-popover {
+        --from-scale: 0.8;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: scale(var(--from-scale));
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            visibility 0s linear 0.3s;
+        will-change: transform, opacity;
+    }
+    .project-popover.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: scale(1);
+        transition:
+            opacity 0.35s ease,
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+            visibility 0s;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .project-popover,
+        .project-popover.is-open {
+            transition: opacity 0.15s ease;
+            transform: none;
+        }
+    }
+
+    /* Flechas visibles solo cuando hay desplazamiento posible */
+    .carousel-arrow {
+        display: none;
+    }
+
+    /* Botón cerrar: solo en dispositivos táctiles */
+    .popover-close {
+        display: none;
+    }
+    @media (hover: none), (pointer: coarse) {
+        .popover-close {
+            display: flex;
+        }
+    }
+
+    /* ===== Tarjetas originales (móvil y tablet) ===== */
     /* Estilos para la consistencia de las tarjetas */
-    article {
+    .projects-grid article {
         min-height: 450px;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         display: flex;
         flex-direction: column;
     }
 
-    article:hover {
+    .projects-grid article:hover {
         transform: translateY(-2px);
     }
 
@@ -483,51 +791,31 @@ const PROJECTS = [
     }
 
     /* Asegurar que todos los elementos del contenido tengan la misma estructura */
-    .p-5 {
+    .projects-grid .p-5 {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
         min-height: 0; /* Permite que flex funcione correctamente */
     }
 
-    /* Responsividad mejorada */
     @media (max-width: 768px) {
-        .grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-            padding: 0 0.5rem;
-        }
-        
-        article {
+        .projects-grid article {
             margin: 0 0.25rem;
             min-height: auto;
         }
-
-
     }
-
     @media (min-width: 769px) and (max-width: 1024px) {
-        .grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        
-        article {
+        .projects-grid article {
             min-height: 440px;
         }
     }
 
-    @media (min-width: 1025px) {
-        .grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
     /* Mejores sombras y efectos */
-    article {
+    .projects-grid article {
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     }
 
-    article:hover {
+    .projects-grid article:hover {
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
