@@ -1,8 +1,8 @@
 ---
 import { Icon } from "astro-icon/components"
 
-const SKILLS = [
-    // Frontend
+// Frontend: protagonista (tarjetas grandes)
+const FRONTEND = [
     { name: "React", icon: "simple-icons:react", color: "bg-blue-500 text-white", glowClass: "skill-react" },
     { name: "Next.js", icon: "simple-icons:nextdotjs", color: "bg-black text-white", glowClass: "skill-nextjs" },
     { name: "Astro", icon: "simple-icons:astro", color: "bg-purple-600 text-white", glowClass: "skill-astro" },
@@ -11,51 +11,44 @@ const SKILLS = [
     { name: "Bootstrap", icon: "simple-icons:bootstrap", color: "bg-purple-600 text-white", glowClass: "skill-bootstrap" },
     { name: "HTML5", icon: "simple-icons:html5", color: "bg-orange-500 text-white", glowClass: "skill-html" },
     { name: "CSS3", icon: "simple-icons:css3", color: "bg-blue-600 text-white", glowClass: "skill-css" },
-    
-    // Backend & Languages
-    { name: "Java", icon: "simple-icons:oracle", color: "bg-red-600 text-white", glowClass: "skill-java" },
-    { name: "Spring Boot", icon: "simple-icons:springboot", color: "bg-green-600 text-white", glowClass: "skill-springboot" },
-    { name: "Spring", icon: "simple-icons:spring", color: "bg-green-500 text-white", glowClass: "skill-spring" },
-    { name: "Node.js", icon: "simple-icons:nodedotjs", color: "bg-green-600 text-white", glowClass: "skill-nodejs" },
-    { name: "Express.js", icon: "simple-icons:express", color: "bg-gray-700 text-white", glowClass: "skill-express" },
-    { name: "Python", icon: "simple-icons:python", color: "bg-blue-500 text-white", glowClass: "skill-python" },
-    { name: "Django", icon: "simple-icons:django", color: "bg-green-700 text-white", glowClass: "skill-django" },
-    { name: "Flask", icon: "simple-icons:flask", color: "bg-gray-700 text-white", glowClass: "skill-flask" },
-    { name: "PHP", icon: "simple-icons:php", color: "bg-purple-700 text-white", glowClass: "skill-php" },
-    { name: "Laravel", icon: "simple-icons:laravel", color: "bg-red-600 text-white", glowClass: "skill-laravel" },
-    { name: "C#", icon: "simple-icons:csharp", color: "bg-purple-600 text-white", glowClass: "skill-csharp" },
-    { name: ".NET", icon: "simple-icons:dotnet", color: "bg-blue-600 text-white", glowClass: "skill-dotnet" },
-    
-    // Bases de datos
-    { name: "PostgreSQL", icon: "simple-icons:postgresql", color: "bg-blue-600 text-white", glowClass: "skill-postgresql" },
-    { name: "MySQL", icon: "simple-icons:mysql", color: "bg-orange-500 text-white", glowClass: "skill-mysql" },
-    { name: "MongoDB", icon: "simple-icons:mongodb", color: "bg-green-600 text-white", glowClass: "skill-mongodb" },
-    { name: "Redis", icon: "simple-icons:redis", color: "bg-red-500 text-white", glowClass: "skill-redis" },
-    { name: "Firebase", icon: "simple-icons:firebase", color: "bg-yellow-500 text-white", glowClass: "skill-firebase" },
-    { name: "SQLite", icon: "simple-icons:sqlite", color: "bg-blue-400 text-white", glowClass: "skill-sqlite" },
-    
-    // Cloud & DevOps
-    { name: "AWS", icon: "simple-icons:amazonwebservices", color: "bg-yellow-600 text-white", glowClass: "skill-aws" },
-    { name: "Google Cloud", icon: "simple-icons:googlecloud", color: "bg-blue-500 text-white", glowClass: "skill-gcloud" },
-    { name: "Azure", icon: "simple-icons:microsoftazure", color: "bg-blue-600 text-white", glowClass: "skill-azure" },
-    { name: "Docker", icon: "simple-icons:docker", color: "bg-blue-500 text-white", glowClass: "skill-docker" },
-    { name: "Kubernetes", icon: "simple-icons:kubernetes", color: "bg-blue-600 text-white", glowClass: "skill-kubernetes" },
-    
-    // Herramientas & Otros
-    { name: "Git", icon: "simple-icons:git", color: "bg-orange-600 text-white", glowClass: "skill-git" },
-    { name: "GitHub", icon: "simple-icons:github", color: "bg-gray-800 text-white", glowClass: "skill-github" },
-    { name: "GitLab", icon: "simple-icons:gitlab", color: "bg-orange-500 text-white", glowClass: "skill-gitlab" },
-    { name: "TypeScript", icon: "simple-icons:typescript", color: "bg-blue-600 text-white", glowClass: "skill-typescript" },
     { name: "JavaScript", icon: "simple-icons:javascript", color: "bg-yellow-400 text-black", glowClass: "skill-javascript" },
-    { name: "Linux", icon: "simple-icons:linux", color: "bg-black text-white", glowClass: "skill-linux" },
-    { name: "Nginx", icon: "simple-icons:nginx", color: "bg-green-500 text-white", glowClass: "skill-nginx" },
-    { name: "Apache", icon: "simple-icons:apache", color: "bg-red-600 text-white", glowClass: "skill-apache" },
+    { name: "TypeScript", icon: "simple-icons:typescript", color: "bg-blue-600 text-white", glowClass: "skill-typescript" },
+]
+
+// Resto del stack, agrupado
+const GROUPS = [
+    {
+        title: "Backend",
+        items: [
+        { name: "Java", icon: "simple-icons:oracle", color: "bg-red-600 text-white", glowClass: "skill-java" },
+        { name: "Spring Boot", icon: "simple-icons:springboot", color: "bg-green-600 text-white", glowClass: "skill-springboot" },
+        { name: "PHP", icon: "simple-icons:php", color: "bg-purple-700 text-white", glowClass: "skill-php" },
+        ],
+    },
+    {
+        title: "Bases de datos",
+        items: [
+        { name: "MySQL", icon: "simple-icons:mysql", color: "bg-orange-500 text-white", glowClass: "skill-mysql" },
+        { name: "PostgreSQL", icon: "simple-icons:postgresql", color: "bg-blue-600 text-white", glowClass: "skill-postgresql" },
+        { name: "SQL Server", icon: "simple-icons:microsoftsqlserver", color: "bg-red-700 text-white", glowClass: "skill-sqlserver" },
+        ],
+    },
+    {
+        title: "Herramientas",
+        items: [
+        { name: "Supabase", icon: "simple-icons:supabase", color: "bg-[#3ecf8e] text-[#111827]", glowClass: "skill-supabase" },
+        { name: "Vercel", icon: "simple-icons:vercel", color: "bg-black text-white", glowClass: "skill-vercel" },
+        { name: "GitHub", icon: "simple-icons:github", color: "bg-gray-800 text-white", glowClass: "skill-github" },
+        { name: "Git", icon: "simple-icons:git", color: "bg-orange-600 text-white", glowClass: "skill-git" },
+        { name: "Netlify", icon: "simple-icons:netlify", color: "bg-teal-500 text-white", glowClass: "skill-netlify" },
+        ],
+    },
 ]
 ---
 
 <div class="w-full">
     <!-- Título de la sección -->
-    <div class="text-center mb-12">
+    <div class="text-center mb-8 sm:mb-12">
         <h3 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             Tecnologías y Herramientas
         </h3>
@@ -64,12 +57,36 @@ const SKILLS = [
         </p>
     </div>
 
-    <!-- Grid de skills compacto -->
-    <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-        {SKILLS.map((skill) => (
-            <div class={`inline-flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 ${skill.color} ${skill.glowClass}`}>
-                <Icon name={skill.icon} class="w-4 h-4" />
-                <span>{skill.name}</span>
+    <!-- Frontend: protagonistas, tarjetas grandes -->
+    <div class="max-w-4xl mx-auto mb-8 sm:mb-12 px-1 sm:px-0">
+        <h4 class="text-sm font-semibold uppercase tracking-widest text-blue-600 dark:text-blue-400 text-center mb-5">
+            Frontend
+        </h4>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 sm:gap-4">
+            {FRONTEND.map((skill) => (
+                <div class={`flex flex-row sm:flex-col items-center justify-start sm:justify-center gap-3 rounded-xl sm:rounded-2xl px-3 py-3 sm:px-4 sm:py-7 md:py-8 text-left sm:text-center shadow-lg transition-all duration-300 hover:scale-105 ${skill.color} ${skill.glowClass}`}>
+                    <Icon name={skill.icon} class="w-7 h-7 sm:w-10 sm:h-10 md:w-12 md:h-12 shrink-0" />
+                    <span class="text-sm sm:text-base font-semibold leading-tight">{skill.name}</span>
+                </div>
+            ))}
+        </div>
+    </div>
+
+    <!-- Resto del stack, agrupado y en tamaño mediano -->
+    <div class="max-w-4xl mx-auto space-y-6 sm:space-y-9 px-1 sm:px-0">
+        {GROUPS.map((group) => (
+            <div>
+                <h4 class="text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 text-center mb-4">
+                    {group.title}
+                </h4>
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
+                    {group.items.map((skill) => (
+                        <div class={`inline-flex items-center gap-2 sm:gap-3 px-3.5 py-2 sm:px-5 sm:py-3 rounded-full text-sm sm:text-base font-medium shadow-md transition-all duration-300 hover:scale-105 ${skill.color} ${skill.glowClass}`}>
+                            <Icon name={skill.icon} class="w-5 h-5 sm:w-6 sm:h-6" />
+                            <span>{skill.name}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
         ))}
     </div>
@@ -77,8 +94,6 @@ const SKILLS = [
 
 <style>
     /* Efectos de resplandor específicos por color */
-    
-    /* Frontend */
     .skill-react:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3); }
     .skill-nextjs:hover { box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(55, 65, 81, 0.4); }
     .skill-astro:hover { box-shadow: 0 0 20px rgba(147, 51, 234, 0.6), 0 0 40px rgba(147, 51, 234, 0.3); }
@@ -87,51 +102,25 @@ const SKILLS = [
     .skill-bootstrap:hover { box-shadow: 0 0 20px rgba(147, 51, 234, 0.6), 0 0 40px rgba(147, 51, 234, 0.3); }
     .skill-html:hover { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6), 0 0 40px rgba(249, 115, 22, 0.3); }
     .skill-css:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
-    
-    /* Backend & Languages */
     .skill-java:hover { box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 40px rgba(220, 38, 38, 0.3); }
     .skill-springboot:hover { box-shadow: 0 0 20px rgba(22, 163, 74, 0.6), 0 0 40px rgba(22, 163, 74, 0.3); }
-    .skill-spring:hover { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.3); }
-    .skill-nodejs:hover { box-shadow: 0 0 20px rgba(22, 163, 74, 0.6), 0 0 40px rgba(22, 163, 74, 0.3); }
-    .skill-express:hover { box-shadow: 0 0 20px rgba(55, 65, 81, 0.6), 0 0 40px rgba(55, 65, 81, 0.3); }
-    .skill-python:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3); }
-    .skill-django:hover { box-shadow: 0 0 20px rgba(21, 128, 61, 0.6), 0 0 40px rgba(21, 128, 61, 0.3); }
-    .skill-flask:hover { box-shadow: 0 0 20px rgba(55, 65, 81, 0.6), 0 0 40px rgba(55, 65, 81, 0.3); }
     .skill-php:hover { box-shadow: 0 0 20px rgba(126, 34, 206, 0.6), 0 0 40px rgba(126, 34, 206, 0.3); }
-    .skill-laravel:hover { box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 40px rgba(220, 38, 38, 0.3); }
-    .skill-csharp:hover { box-shadow: 0 0 20px rgba(147, 51, 234, 0.6), 0 0 40px rgba(147, 51, 234, 0.3); }
-    .skill-dotnet:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
-    
-    /* Bases de datos */
     .skill-postgresql:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
     .skill-mysql:hover { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6), 0 0 40px rgba(249, 115, 22, 0.3); }
-    .skill-mongodb:hover { box-shadow: 0 0 20px rgba(22, 163, 74, 0.6), 0 0 40px rgba(22, 163, 74, 0.3); }
-    .skill-redis:hover { box-shadow: 0 0 20px rgba(239, 68, 68, 0.6), 0 0 40px rgba(239, 68, 68, 0.3); }
-    .skill-firebase:hover { box-shadow: 0 0 20px rgba(234, 179, 8, 0.6), 0 0 40px rgba(234, 179, 8, 0.3); }
-    .skill-sqlite:hover { box-shadow: 0 0 20px rgba(96, 165, 250, 0.6), 0 0 40px rgba(96, 165, 250, 0.3); }
-    
-    /* Cloud & DevOps */
-    .skill-aws:hover { box-shadow: 0 0 20px rgba(202, 138, 4, 0.6), 0 0 40px rgba(202, 138, 4, 0.3); }
-    .skill-gcloud:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3); }
-    .skill-azure:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
-    .skill-docker:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.3); }
-    .skill-kubernetes:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
-    
-    /* Herramientas & Otros */
     .skill-git:hover { box-shadow: 0 0 20px rgba(234, 88, 12, 0.6), 0 0 40px rgba(234, 88, 12, 0.3); }
     .skill-github:hover { box-shadow: 0 0 20px rgba(31, 41, 55, 0.6), 0 0 40px rgba(55, 65, 81, 0.4); }
-    .skill-gitlab:hover { box-shadow: 0 0 20px rgba(249, 115, 22, 0.6), 0 0 40px rgba(249, 115, 22, 0.3); }
     .skill-typescript:hover { box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 0 40px rgba(37, 99, 235, 0.3); }
     .skill-javascript:hover { box-shadow: 0 0 20px rgba(250, 204, 21, 0.6), 0 0 40px rgba(250, 204, 21, 0.3); }
-    .skill-linux:hover { box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(55, 65, 81, 0.4); }
-    .skill-nginx:hover { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.3); }
-    .skill-apache:hover { box-shadow: 0 0 20px rgba(220, 38, 38, 0.6), 0 0 40px rgba(220, 38, 38, 0.3); }
-    
+    .skill-supabase:hover { box-shadow: 0 0 20px rgba(62, 207, 142, 0.6), 0 0 40px rgba(62, 207, 142, 0.3); }
+    .skill-sqlserver:hover { box-shadow: 0 0 20px rgba(185, 28, 28, 0.6), 0 0 40px rgba(185, 28, 28, 0.3); }
+    .skill-vercel:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.35), 0 0 40px rgba(148, 163, 184, 0.3); }
+    .skill-netlify:hover { box-shadow: 0 0 20px rgba(20, 184, 166, 0.6), 0 0 40px rgba(20, 184, 166, 0.3); }
+
     /* Transiciones suaves */
     div[class*="skill-"] {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     /* Efectos adicionales en hover */
     div[class*="skill-"]:hover {
         transform: translateY(-2px) scale(1.05);
