@@ -570,6 +570,12 @@ const PROJECTS = [
         let activeIndex = -1
         let hideTimer: number | undefined
         let showTimer: number | undefined
+        let lastTabKey = 0
+        document.addEventListener('keydown', (e) => { if (e.key === 'Tab') lastTabKey = Date.now() }, true)
+
+        // Al salir de la pestaña o ventana, cerrar cualquier panel abierto
+        window.addEventListener('blur', () => hidePopover(true))
+        document.addEventListener('visibilitychange', () => { if (document.hidden) hidePopover(true) })
 
         /* ---------- Carrusel: flechas ---------- */
         const step = () => {
@@ -660,7 +666,11 @@ const PROJECTS = [
             card.addEventListener('mouseleave', () => hidePopover())
             // Táctil y teclado
             card.addEventListener('click', () => showPopover(card))
-            card.addEventListener('focus', () => showPopover(card))
+            // Solo abrir por foco si el usuario llegó con la tecla Tab (no al restaurar el foco
+            // del navegador al volver a la pestaña o a la ventana)
+            card.addEventListener('focus', () => {
+                if (Date.now() - lastTabKey < 250) showPopover(card)
+            })
             card.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showPopover(card) }
                 if (e.key === 'Escape') hidePopover(true)
