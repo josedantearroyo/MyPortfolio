@@ -53,7 +53,7 @@ const EXPERIENCE = [
         {EXPERIENCE.map((item, index) => (
           <div class={`relative flex flex-col md:flex-row items-start md:items-center ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
             <!-- Punto central (solo visible en desktop) -->
-            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-3 h-3 bg-blue-500 rounded-full border-2 border-white dark:border-gray-900 z-10"></div>
+            <div class="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-3 h-3 bg-blue-500 rounded-full border-2 border-white dark:border-gray-900 z-[1]"></div>
             
             <!-- Card Container -->
             <div class={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:pr-6' : 'md:pl-6'}`}>
@@ -140,7 +140,7 @@ const EXPERIENCE = [
       background: #3b82f6;
       border-radius: 50%;
       border: 2px solid white;
-      z-index: 10;
+      z-index: 1;
     }
     
     .dark .group::before {
